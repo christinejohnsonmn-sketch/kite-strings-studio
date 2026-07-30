@@ -13,11 +13,12 @@
   const storageKey = `ksd-entry:${todayKey()}`;
 
   const dateLabelEl = document.getElementById('dateLabel');
-  dateLabelEl.textContent = new Date().toLocaleDateString(undefined, {
+  const autoDateLabel = new Date().toLocaleDateString(undefined, {
     weekday: 'long', month: 'long', day: 'numeric'
   });
 
   const defaultState = {
+    dateLabel: autoDateLabel,
     focus: '',
     mission: '',
     bigThree: [
@@ -88,6 +89,7 @@
   }
 
   function render() {
+    dateLabelEl.value = state.dateLabel;
     focusTag.value = state.focus;
     missionEl.value = state.mission;
     nowField.value = state.now;
@@ -229,6 +231,7 @@
     requestAnimationFrame(drawString);
   });
 
+  dateLabelEl.addEventListener('input', () => { state.dateLabel = dateLabelEl.value; scheduleSave(); });
   focusTag.addEventListener('input', () => { state.focus = focusTag.value; scheduleSave(); });
   missionEl.addEventListener('input', () => { state.mission = missionEl.value; scheduleSave(); });
   nowField.addEventListener('input', () => { state.now = nowField.value; scheduleSave(); });

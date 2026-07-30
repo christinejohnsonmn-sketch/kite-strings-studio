@@ -112,7 +112,14 @@ header.masthead {
   letter-spacing: 0.04em;
   color: var(--ink-soft);
   text-transform: uppercase;
+  border: none;
+  background: transparent;
+  text-align: center;
+  width: 130px;
+  padding: 3px 4px;
+  border-radius: 4px;
 }
+.date-pill::placeholder { color: #ABA6C0; text-transform: none; }
 
 .focus-tag {
   font-family: 'Roboto', sans-serif;
