@@ -210,6 +210,39 @@ section:last-of-type { border-bottom: none; padding-bottom: 4px; }
 .b3-text::placeholder { color: #ABA6C0; }
 .b3-item.done .b3-text { color: #A6A399; text-decoration: line-through; text-decoration-color: #C7C2B3; transition: opacity 0.3s ease; }
 
+/* Time Blocks */
+.timeblock-list { list-style: none; margin: 0; padding: 0; }
+.tb-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 5px 0;
+  border-bottom: 1px solid #EEEBE0;
+}
+.tb-item:last-child { border-bottom: none; }
+.tb-time {
+  flex: 0 0 auto;
+  width: 68px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+.tb-text {
+  flex: 1 1 auto;
+  border: none;
+  background: transparent;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14.5px;
+  color: var(--ink);
+  padding: 6px 2px;
+  border-bottom: 1px dashed transparent;
+}
+.tb-text:focus { border-bottom: 1px dashed var(--line); }
+.tb-text::placeholder { color: #B7B3A6; }
+.tb-item.current .tb-time { color: var(--yellow-deep); font-weight: 600; }
+.tb-item.current { background: linear-gradient(90deg, rgba(245,221,144,0.25), transparent); border-radius: 4px; }
+
 /* Now */
 .now-input {
   width: 100%;
