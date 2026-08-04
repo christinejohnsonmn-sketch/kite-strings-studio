@@ -17,29 +17,28 @@
     weekday: 'long', month: 'long', day: 'numeric'
   });
 
+  function buildDefaultTimeBlocks() {
+    const blocks = [];
+    const labels = [
+      '8:00 AM', '8:30 AM', '9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM',
+      '11:00 AM', '11:30 AM', '12:00 PM', '12:30 PM', '1:00 PM', '1:30 PM',
+      '2:00 PM', '2:30 PM', '3:00 PM', '3:30 PM', '4:00 PM', '4:30 PM',
+      '5:00 PM', '5:30 PM', '6:00 PM'
+    ];
+    labels.forEach((time) => blocks.push({ time, text: '' }));
+    return blocks;
+  }
+
   const defaultState = {
     dateLabel: autoDateLabel,
     focus: '',
-    mission: '',
     bigThree: [
       { text: '', done: false },
       { text: '', done: false },
       { text: '', done: false }
     ],
     now: '',
-    timeBlocks: [
-      { time: '8:00 AM', text: '' },
-      { time: '9:00 AM', text: '' },
-      { time: '10:00 AM', text: '' },
-      { time: '11:00 AM', text: '' },
-      { time: '12:00 PM', text: '' },
-      { time: '1:00 PM', text: '' },
-      { time: '2:00 PM', text: '' },
-      { time: '3:00 PM', text: '' },
-      { time: '4:00 PM', text: '' },
-      { time: '5:00 PM', text: '' },
-      { time: '6:00 PM', text: '' }
-    ],
+    timeBlocks: buildDefaultTimeBlocks(),
     upcoming: [{ text: '', done: false }],
     brainDump: [''],
     eodMoved: '',
@@ -50,9 +49,9 @@
 
   const el = (id) => document.getElementById(id);
   const focusTag = el('focusTag');
-  const missionEl = el('mission');
   const bigThreeList = el('bigThreeList');
   const nowField = el('nowField');
+  const nowCheck = el('nowCheck');
   const timeBlockList = el('timeBlockList');
   const upcomingList = el('upcomingList');
   const addUpcomingBtn = el('addUpcoming');
@@ -108,8 +107,8 @@
   function render() {
     dateLabelEl.value = state.dateLabel;
     focusTag.value = state.focus;
-    missionEl.value = state.mission;
     nowField.value = state.now;
+    nowCheck.checked = false;
     eodMoved.value = state.eodMoved;
     eodTomorrow.value = state.eodTomorrow;
     renderBigThree();
@@ -118,11 +117,52 @@
     renderBrainDump();
   }
 
+  function moveItem(arr, from, to) {
+    if (to < 0 || to >= arr.length) return;
+    const [item] = arr.splice(from, 1);
+    arr.splice(to, 0, item);
+  }
+
+  function makeReorderGroup(arr, idx, onMoved) {
+    const group = document.createElement('span');
+    group.className = 'reorder-group';
+
+    const up = document.createElement('button');
+    up.className = 'reorder-btn';
+    up.type = 'button';
+    up.textContent = '▲';
+    up.setAttribute('aria-label', 'Move up');
+    up.disabled = idx === 0;
+    up.addEventListener('click', () => {
+      moveItem(arr, idx, idx - 1);
+      onMoved();
+      scheduleSave();
+    });
+
+    const down = document.createElement('button');
+    down.className = 'reorder-btn';
+    down.type = 'button';
+    down.textContent = '▼';
+    down.setAttribute('aria-label', 'Move down');
+    down.disabled = idx === arr.length - 1;
+    down.addEventListener('click', () => {
+      moveItem(arr, idx, idx + 1);
+      onMoved();
+      scheduleSave();
+    });
+
+    group.appendChild(up);
+    group.appendChild(down);
+    return group;
+  }
+
   function renderBigThree() {
     bigThreeList.innerHTML = '';
     state.bigThree.forEach((item, idx) => {
       const li = document.createElement('li');
       li.className = 'b3-item' + (item.done ? ' done' : '');
+
+      const reorder = makeReorderGroup(state.bigThree, idx, renderBigThree);
 
       const check = document.createElement('input');
       check.type = 'checkbox';
@@ -144,6 +184,7 @@
         scheduleSave();
       });
 
+      li.appendChild(reorder);
       li.appendChild(check);
       li.appendChild(text);
       bigThreeList.appendChild(li);
@@ -152,11 +193,12 @@
 
   function renderTimeBlocks() {
     timeBlockList.innerHTML = '';
-    const currentHour = new Date().getHours();
+    const now = new Date();
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
     state.timeBlocks.forEach((block, idx) => {
       const li = document.createElement('li');
-      const blockHour24 = to24Hour(block.time);
-      const isCurrent = blockHour24 === currentHour;
+      const blockStart = toMinutes(block.time);
+      const isCurrent = blockStart >= 0 && currentMinutes >= blockStart && currentMinutes < blockStart + 30;
       li.className = 'tb-item' + (isCurrent ? ' current' : '');
 
       const time = document.createElement('span');
@@ -179,14 +221,15 @@
     });
   }
 
-  function to24Hour(label) {
-    const match = label.match(/(\d+):00\s*(AM|PM)/i);
+  function toMinutes(label) {
+    const match = label.match(/(\d+):(\d+)\s*(AM|PM)/i);
     if (!match) return -1;
     let hour = parseInt(match[1], 10);
-    const period = match[2].toUpperCase();
+    const minutes = parseInt(match[2], 10);
+    const period = match[3].toUpperCase();
     if (period === 'AM' && hour === 12) hour = 0;
     if (period === 'PM' && hour !== 12) hour += 12;
-    return hour;
+    return hour * 60 + minutes;
   }
 
   function renderUpcoming() {
@@ -194,6 +237,8 @@
     state.upcoming.forEach((item, idx) => {
       const li = document.createElement('li');
       li.className = 'up-item' + (item.done ? ' done' : '');
+
+      const reorder = makeReorderGroup(state.upcoming, idx, renderUpcoming);
 
       const check = document.createElement('input');
       check.type = 'checkbox';
@@ -227,6 +272,7 @@
         requestAnimationFrame(drawString);
       });
 
+      li.appendChild(reorder);
       li.appendChild(check);
       li.appendChild(text);
       li.appendChild(remove);
@@ -272,6 +318,19 @@
     });
   }
 
+  // ---- Now checkbox: check it to clear the current item and pull the next Upcoming item up ----
+  nowCheck.addEventListener('change', () => {
+    if (!nowCheck.checked) return;
+    const next = state.upcoming.shift();
+    state.now = next && next.text ? next.text : '';
+    if (state.upcoming.length === 0) state.upcoming = [{ text: '', done: false }];
+    nowField.value = state.now;
+    nowCheck.checked = false;
+    renderUpcoming();
+    scheduleSave();
+    requestAnimationFrame(drawString);
+  });
+
   addUpcomingBtn.addEventListener('click', () => {
     state.upcoming.push({ text: '', done: false });
     renderUpcoming();
@@ -290,7 +349,6 @@
 
   dateLabelEl.addEventListener('input', () => { state.dateLabel = dateLabelEl.value; scheduleSave(); });
   focusTag.addEventListener('input', () => { state.focus = focusTag.value; scheduleSave(); });
-  missionEl.addEventListener('input', () => { state.mission = missionEl.value; scheduleSave(); });
   nowField.addEventListener('input', () => { state.now = nowField.value; scheduleSave(); });
   eodMoved.addEventListener('input', () => { state.eodMoved = eodMoved.value; scheduleSave(); });
   eodTomorrow.addEventListener('input', () => { state.eodTomorrow = eodTomorrow.value; scheduleSave(); });
@@ -299,7 +357,7 @@
   function drawString() {
     const svg = el('stringSvg');
     const sheet = document.querySelector('.sheet');
-    const anchors = ['anchor-mission', 'anchor-big3', 'anchor-timeblocks', 'anchor-now', 'anchor-upcoming', 'anchor-brain', 'anchor-eod']
+    const anchors = ['anchor-big3', 'anchor-timeblocks', 'anchor-now', 'anchor-upcoming', 'anchor-brain', 'anchor-eod']
       .map((id) => el(id));
 
     const sheetRect = sheet.getBoundingClientRect();

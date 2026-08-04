@@ -22,11 +22,6 @@
     </div>
   </header>
 
-  <section id="anchor-mission">
-    <div class="eyebrow">Today's Mission</div>
-    <input class="mission-input editable" id="mission" placeholder="Create excellent client work." />
-  </section>
-
   <section id="anchor-big3">
     <div class="eyebrow">⭐ Big Three</div>
     <ul class="big-three-list" id="bigThreeList"></ul>
@@ -39,7 +34,10 @@
 
   <section id="anchor-now">
     <div class="eyebrow">▶ Now</div>
-    <input class="now-input editable" id="nowField" placeholder="What are you doing this very minute?" />
+    <div class="now-row">
+      <input type="checkbox" class="now-check" id="nowCheck" aria-label="Mark current item done and pull the next one up" />
+      <input class="now-input editable" id="nowField" placeholder="What are you doing this very minute?" />
+    </div>
   </section>
 
   <section id="anchor-upcoming">
@@ -61,7 +59,7 @@
       <textarea class="eod-textarea editable" id="eodMoved" placeholder="..."></textarea>
     </div>
     <div class="eod-block">
-      <label class="eod-label" for="eodTomorrow">What is tomorrow's first move?</label>
+      <label class="eod-label" for="eodTomorrow">What is the first move on the next theme day?</label>
       <textarea class="eod-textarea editable" id="eodTomorrow" placeholder="..."></textarea>
     </div>
   </section>

@@ -159,21 +159,21 @@ section:last-of-type { border-bottom: none; padding-bottom: 4px; }
   margin-bottom: 10px;
 }
 
-.mission-input {
-  width: 100%;
-  border: none;
-  background: transparent;
-  font-family: 'Roboto Slab', serif;
-  font-size: 19px;
-  font-weight: 500;
-  color: var(--ink);
-  padding: 2px 0;
-}
-.mission-input::placeholder { color: #ABA79A; font-style: italic; }
-
 /* Big Three */
 .big-three-list { list-style: none; margin: 0; padding: 0; }
-.b3-item { display: flex; align-items: center; gap: 12px; padding: 7px 0; }
+.b3-item { display: flex; align-items: center; gap: 8px; padding: 7px 0; }
+.reorder-group { display: flex; flex-direction: column; gap: 0; flex: 0 0 auto; }
+.reorder-btn {
+  border: none;
+  background: transparent;
+  color: #C4B9A5;
+  font-size: 11px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 1px 3px;
+}
+.reorder-btn:hover:not(:disabled) { color: var(--blue); }
+.reorder-btn:disabled { opacity: 0.25; cursor: default; }
 .b3-check {
   flex: 0 0 auto;
   width: 19px; height: 19px;
@@ -244,7 +244,31 @@ section:last-of-type { border-bottom: none; padding-bottom: 4px; }
 .tb-item.current { background: linear-gradient(90deg, rgba(245,221,144,0.25), transparent); border-radius: 4px; }
 
 /* Now */
+.now-row { display: flex; align-items: center; gap: 12px; }
+.now-check {
+  flex: 0 0 auto;
+  width: 19px;
+  height: 19px;
+  border: 1.6px solid var(--blue);
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.now-check:checked { background: var(--yellow); border-color: var(--yellow-deep); }
+.now-check:checked::after {
+  content: "";
+  position: absolute;
+  left: 5px; top: 1px;
+  width: 5px; height: 9px;
+  border: solid var(--ink);
+  border-width: 0 2px 2px 0;
+  transform: rotate(40deg);
+}
 .now-input {
+  flex: 1 1 auto;
   width: 100%;
   border: none;
   background: var(--blue-soft);
@@ -259,7 +283,7 @@ section:last-of-type { border-bottom: none; padding-bottom: 4px; }
 
 /* Upcoming */
 .upcoming-list { list-style: none; margin: 0 0 10px; padding: 0; }
-.up-item { display: flex; align-items: center; gap: 10px; padding: 5px 0; }
+.up-item { display: flex; align-items: center; gap: 8px; padding: 5px 0; }
 .up-check {
   flex: 0 0 auto;
   width: 16px; height: 16px;
