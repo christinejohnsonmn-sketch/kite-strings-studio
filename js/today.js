@@ -3,24 +3,30 @@
 // Expects window.KSD_BUSINESS = { slug, label, defaultFocus } to be set
 // by an inline <script> in the page before this file loads.
 // Persists one planner entry per business per calendar day in localStorage.
-// The brain-dump / "Parking Lot" list is shared across every business and day.
+// The brain-dump / "The Landing" list is shared across every business and day.
 // ==========================================================================
 (function () {
   const business = window.KSD_BUSINESS || { slug: 'today', label: 'Today', defaultFocus: '' };
 
-  const todayKey = () => {
-    const d = new Date();
+  const dateKeyFor = (d) => {
     const y = d.getFullYear();
     const m = String(d.getMonth() + 1).padStart(2, '0');
     const day = String(d.getDate()).padStart(2, '0');
     return `${y}-${m}-${day}`;
   };
-  const storageKey = `ksd-entry:${business.slug}:${todayKey()}`;
+  const storageKeyFor = (d) => `ksd-entry:${business.slug}:${dateKeyFor(d)}`;
+  const isSameDay = (a, b) => dateKeyFor(a) === dateKeyFor(b);
 
-  const dateLabelEl = document.getElementById('dateLabel');
-  const autoDateLabel = new Date().toLocaleDateString(undefined, {
-    weekday: 'long', month: 'long', day: 'numeric'
-  });
+  // viewDate is the date currently being displayed/edited — defaults to
+  // the real today, but the ‹ › arrows can move it forward or back so you
+  // can plan a future day (or revisit a past one) without losing today's entry.
+  let viewDate = new Date();
+
+  const dateDisplayEl = document.getElementById('dateDisplay');
+  const datePrevBtn = document.getElementById('datePrev');
+  const dateNextBtn = document.getElementById('dateNext');
+  const todayJumpBtn = document.getElementById('todayJump');
+  const planningNoteEl = document.getElementById('planningNote');
 
   function buildDefaultTimeBlocks() {
     const labels = [
@@ -33,7 +39,6 @@
   }
 
   const defaultState = {
-    dateLabel: autoDateLabel,
     focus: business.defaultFocus || '',
     bigThree: [
       { text: '', done: false },
@@ -72,7 +77,7 @@
 
   function save() {
     try {
-      localStorage.setItem(storageKey, JSON.stringify(state));
+      localStorage.setItem(storageKeyFor(viewDate), JSON.stringify(state));
       saveStatus.textContent = 'saved';
       clearTimeout(saveStatus._fadeTimer);
       saveStatus._fadeTimer = setTimeout(() => { saveStatus.textContent = ''; }, 1500);
@@ -82,9 +87,10 @@
     }
   }
 
-  function load() {
+  function loadEntryForViewDate() {
+    state = JSON.parse(JSON.stringify(defaultState));
     try {
-      const raw = localStorage.getItem(storageKey);
+      const raw = localStorage.getItem(storageKeyFor(viewDate));
       if (raw) {
         const loaded = JSON.parse(raw);
         state = Object.assign(JSON.parse(JSON.stringify(defaultState)), loaded);
@@ -99,14 +105,48 @@
         }
       }
     } catch (err) {
-      // No existing entry for today — start fresh.
+      // No existing entry for this date — start fresh.
     }
-    parkingLot = window.KSDParkingLot.load();
+  }
+
+  function load() {
+    loadEntryForViewDate();
+    parkingLot = window.KSDLanding.load();
     render();
   }
 
+  function updateDateChrome() {
+    dateDisplayEl.textContent = viewDate.toLocaleDateString(undefined, {
+      weekday: 'long', month: 'long', day: 'numeric'
+    });
+    const onToday = isSameDay(viewDate, new Date());
+    todayJumpBtn.hidden = onToday;
+    planningNoteEl.textContent = onToday
+      ? ''
+      : `📅 Planning ahead — this is ${viewDate.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}, not today.`;
+  }
+
+  function goToDate(newDate) {
+    viewDate = newDate;
+    loadEntryForViewDate();
+    updateDateChrome();
+    render();
+    requestAnimationFrame(drawString);
+  }
+
+  datePrevBtn.addEventListener('click', () => {
+    const d = new Date(viewDate);
+    d.setDate(d.getDate() - 1);
+    goToDate(d);
+  });
+  dateNextBtn.addEventListener('click', () => {
+    const d = new Date(viewDate);
+    d.setDate(d.getDate() + 1);
+    goToDate(d);
+  });
+  todayJumpBtn.addEventListener('click', () => goToDate(new Date()));
+
   function render() {
-    dateLabelEl.value = state.dateLabel;
     focusTag.value = state.focus;
     nowField.value = state.now;
     nowCheck.checked = false;
@@ -281,7 +321,7 @@
     });
   }
 
-  // Brain dump reads/writes the SHARED Parking Lot list, not per-day state.
+  // Brain dump reads/writes the SHARED The Landing list, not per-day state.
   function renderBrainDump() {
     brainList.innerHTML = '';
     parkingLot.forEach((thought, idx) => {
@@ -309,7 +349,7 @@
         parkingLot.splice(idx, 1);
         if (parkingLot.length === 0) parkingLot = [''];
         renderBrainDump();
-        window.KSDParkingLot.save(parkingLot);
+        window.KSDLanding.save(parkingLot);
         requestAnimationFrame(drawString);
       });
 
@@ -323,7 +363,7 @@
   let parkingLotSaveTimer = null;
   function scheduleSaveParkingLot() {
     clearTimeout(parkingLotSaveTimer);
-    parkingLotSaveTimer = setTimeout(() => window.KSDParkingLot.save(parkingLot), 400);
+    parkingLotSaveTimer = setTimeout(() => window.KSDLanding.save(parkingLot), 400);
   }
 
   // ---- Now checkbox: check it to clear the current item and pull the next Upcoming item up ----
@@ -350,13 +390,12 @@
   addThoughtBtn.addEventListener('click', () => {
     parkingLot.push('');
     renderBrainDump();
-    window.KSDParkingLot.save(parkingLot);
+    window.KSDLanding.save(parkingLot);
     const inputs = brainList.querySelectorAll('.brain-text');
     if (inputs.length) inputs[inputs.length - 1].focus();
     requestAnimationFrame(drawString);
   });
 
-  dateLabelEl.addEventListener('input', () => { state.dateLabel = dateLabelEl.value; scheduleSave(); });
   focusTag.addEventListener('input', () => { state.focus = focusTag.value; scheduleSave(); });
   nowField.addEventListener('input', () => { state.now = nowField.value; scheduleSave(); });
   eodMoved.addEventListener('input', () => { state.eodMoved = eodMoved.value; scheduleSave(); });
@@ -401,6 +440,7 @@
 
   window.addEventListener('resize', () => requestAnimationFrame(drawString));
 
+  updateDateChrome();
   load();
   requestAnimationFrame(() => {
     drawString();

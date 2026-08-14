@@ -1,5 +1,5 @@
 // ==========================================================================
-// Kite Strings Studio — Parking Lot page
+// Kite Strings Studio — The Landing page
 // Full view/edit of the shared caught-thoughts list.
 // ==========================================================================
 (function () {
@@ -8,7 +8,7 @@
   const addThoughtBtn = el('addThought');
   const saveStatus = el('saveStatus');
 
-  let items = window.KSDParkingLot.load();
+  let items = window.KSDLanding.load();
   let saveTimer = null;
 
   function scheduleSave() {
@@ -17,7 +17,7 @@
   }
 
   function save() {
-    const ok = window.KSDParkingLot.save(items);
+    const ok = window.KSDLanding.save(items);
     if (ok) {
       saveStatus.textContent = 'saved';
       clearTimeout(saveStatus._fadeTimer);
@@ -54,7 +54,7 @@
         items.splice(idx, 1);
         if (items.length === 0) items = [''];
         render();
-        window.KSDParkingLot.save(items);
+        window.KSDLanding.save(items);
       });
 
       li.appendChild(bullet);

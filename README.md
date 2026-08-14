@@ -31,11 +31,11 @@ Whenever a new feature is tempting, ask: *would this make the studio feel calmer
 
 - `index.html` — the **Router**: on load, checks the day of the week and sends you straight to that day's room. Runs once per visit to this page; it never re-fires once you're inside a room, so reloading mid-day never bounces you elsewhere. Weekends show a room picker instead of guessing.
 - `today-lite-run.html`, `today-ksd-client.html`, `today-ksd-templates.html`, `today-lifestyle.html`, `today-visionary.html` — the five themed Today rooms, each with its own Big Three, Time Blocks, Now, Upcoming, and End of Day, saved separately per business per day
-- `parking-lot.html` — the shared "Things My Brain Tried to Make Me Do" list, visible and editable from every room, any day
+- `landing.html` — the shared "Things My Brain Tried to Make Me Do" list, visible and editable from every room, any day
 - `css/style.css` — the design system (KSD brand palette + type) shared by every page
 - `js/today.js` — generic Today-room behavior, parameterized per business via a small inline `window.KSD_BUSINESS` config in each page
-- `js/parking-lot-store.js` — shared storage helper for the Parking Lot list
-- `js/parking-lot.js` — Parking Lot page behavior
+- `js/landing-store.js` — shared storage helper for the The Landing list
+- `js/landing.js` — The Landing page behavior
 
 ## Weekly rhythm
 
@@ -52,7 +52,7 @@ Whenever a new feature is tempting, ask: *would this make the studio feel calmer
 
 - [x] Sprint 1 — Design system (palette, type, components)
 - [x] Sprint 2 — Today room
-- [x] Sprint 3 (partial) — Day-of-week router, five themed Today rooms, shared Parking Lot
+- [x] Sprint 3 (partial) — Day-of-week router, five themed Today rooms, shared The Landing
 - [ ] Sprint 4 — Studio Wall pages (per-business overview) and Room pages (per-business deep workspace)
 - [ ] Sprint 5 — Polish: motion, mobile refinement, maybe dark mode
 

@@ -17,16 +17,22 @@
     <div class="brand">Kite Strings Studio</div>
     <div class="tagline">Lite Run — Mondays</div>
     <div class="meta-row">
-      <input class="date-pill editable" id="dateLabel" placeholder="Monday" />
+      <div class="date-nav">
+        <button type="button" class="date-nav-btn" id="datePrev" aria-label="Previous day">&lsaquo;</button>
+        <span class="date-display" id="dateDisplay"></span>
+        <button type="button" class="date-nav-btn" id="dateNext" aria-label="Next day">&rsaquo;</button>
+      </div>
+      <button type="button" class="today-jump" id="todayJump" title="Jump back to today">Today</button>
       <input class="focus-tag editable" id="focusTag" placeholder="🪁 Lite Run" />
     </div>
+    <div class="planning-note" id="planningNote"></div>
     <nav class="room-nav">
       <a class="room-pill active" href="today-lite-run.html">Lite Run</a>
       <a class="room-pill" href="today-ksd-client.html">KSD Client Work</a>
       <a class="room-pill" href="today-ksd-templates.html">KSD Templates</a>
       <a class="room-pill" href="today-lifestyle.html">KSD Lifestyle</a>
       <a class="room-pill" href="today-visionary.html">Visionary Studio</a>
-      <a class="room-pill" href="parking-lot.html">🧠 Parking Lot</a>
+      <a class="room-pill" href="landing.html">🧠 The Landing</a>
     </nav>
   </header>
 
@@ -57,8 +63,8 @@
   <section id="anchor-brain">
     <div class="eyebrow">🧠 Things My Brain Tried to Make Me Do</div>
     <ul class="brain-list" id="brainList"></ul>
-    <button class="add-btn" id="addThought">+ catch a thought</button>
-    <p class="router-message" style="font-size:11px; margin-top:8px;">Shared with every room via the <a href="parking-lot.html" style="color:var(--blue);">Parking Lot</a>.</p>
+    <button class="add-btn" id="addThought">+ pin for later</button>
+    <p class="router-message" style="font-size:11px; margin-top:8px;">Shared with every room via the <a href="landing.html" style="color:var(--blue);">The Landing</a>.</p>
   </section>
 
   <section id="anchor-eod">
@@ -79,7 +85,7 @@
 <script>
   window.KSD_BUSINESS = { slug: 'lite-run', label: 'Lite Run', defaultFocus: '🪁 Lite Run' };
 </script>
-<script src="js/parking-lot-store.js"></script>
+<script src="js/landing-store.js"></script>
 <script src="js/today.js"></script>
 </body>
 </html>
