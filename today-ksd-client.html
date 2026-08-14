@@ -10,20 +10,24 @@
 </head>
 <body>
 
-<div class="sheet">
-  <svg class="string-svg" id="stringSvg" preserveAspectRatio="none"></svg>
+<div class="page">
 
-  <header class="masthead">
-    <div class="brand">Kite Strings Studio</div>
-    <div class="tagline">KSD Client Work — Tuesdays</div>
-    <div class="meta-row">
-      <div class="date-nav">
-        <button type="button" class="date-nav-btn" id="datePrev" aria-label="Previous day">&lsaquo;</button>
-        <span class="date-display" id="dateDisplay"></span>
-        <button type="button" class="date-nav-btn" id="dateNext" aria-label="Next day">&rsaquo;</button>
+  <div class="card header-card">
+    <div class="header-top">
+      <div class="logo">
+        <img src="assets/logo.png" alt="Kite Strings Studio" class="logo-img" />
       </div>
-      <button type="button" class="today-jump" id="todayJump" title="Jump back to today">Today</button>
-      <input class="focus-tag editable" id="focusTag" placeholder="🎨 KSD Client Work" />
+      <div class="room-title">
+        <span class="name">KSD Client Work —</span> <span class="day">Tuesdays</span>
+      </div>
+      <div class="header-date">
+        <span class="date-display" id="dateDisplay"></span>
+        <div class="date-nav">
+          <button type="button" class="date-nav-btn" id="datePrev" aria-label="Previous day">&lsaquo;</button>
+          <button type="button" class="date-nav-btn" id="dateNext" aria-label="Next day">&rsaquo;</button>
+          <button type="button" class="today-jump" id="todayJump" title="Jump back to today">Today</button>
+        </div>
+      </div>
     </div>
     <div class="planning-note" id="planningNote"></div>
     <nav class="room-nav">
@@ -32,54 +36,65 @@
       <a class="room-pill" href="today-ksd-templates.html">KSD Templates</a>
       <a class="room-pill" href="today-lifestyle.html">KSD Lifestyle</a>
       <a class="room-pill" href="today-visionary.html">Visionary Studio</a>
-      <a class="room-pill" href="landing.html">🧠 The Landing</a>
+      <a class="room-pill" href="landing.html">The Landing</a>
     </nav>
-  </header>
+  </div>
 
-  <section id="anchor-big3">
-    <div class="eyebrow">⭐ Big Three</div>
-    <ul class="big-three-list" id="bigThreeList"></ul>
-  </section>
+  <div class="room-grid">
 
-  <section id="anchor-timeblocks">
-    <div class="eyebrow">🕐 Time Blocks</div>
-    <ul class="timeblock-list" id="timeBlockList"></ul>
-  </section>
-
-  <section id="anchor-now">
-    <div class="eyebrow">▶ Now</div>
-    <div class="now-row">
-      <input type="checkbox" class="now-check" id="nowCheck" aria-label="Mark current item done and pull the next one up" />
-      <input class="now-input editable" id="nowField" placeholder="What are you doing this very minute?" />
+    <div class="card timeblocks-card">
+      <div class="eyebrow">🕐 Time Blocks</div>
+      <ul class="timeblock-list" id="timeBlockList"></ul>
     </div>
-  </section>
 
-  <section id="anchor-upcoming">
-    <div class="eyebrow">📌 Upcoming</div>
-    <ul class="upcoming-list" id="upcomingList"></ul>
-    <button class="add-btn" id="addUpcoming">+ add a small task</button>
-  </section>
+    <div class="col-stack">
+      <div class="card">
+        <div class="planner-section" id="anchor-big3">
+          <div class="eyebrow">⭐ Big Three</div>
+          <ul class="big-three-list" id="bigThreeList"></ul>
+        </div>
 
-  <section id="anchor-brain">
-    <div class="eyebrow">🧠 Things My Brain Tried to Make Me Do</div>
-    <ul class="brain-list" id="brainList"></ul>
-    <button class="add-btn" id="addThought">+ pin for later</button>
-    <p class="router-message" style="font-size:11px; margin-top:8px;">Shared with every room via the <a href="landing.html" style="color:var(--blue);">The Landing</a>.</p>
-  </section>
+        <div class="planner-section" id="anchor-now">
+          <div class="eyebrow">▶ Now</div>
+          <div class="now-row">
+            <input type="checkbox" class="now-check" id="nowCheck" aria-label="Mark current item done and pull the next one up" />
+            <input class="now-input editable" id="nowField" placeholder="What are you doing this very minute?" />
+          </div>
+        </div>
 
-  <section id="anchor-eod">
-    <div class="eyebrow">🌱 End of Day</div>
-    <div class="eod-block">
-      <label class="eod-label" for="eodMoved">What moved forward?</label>
-      <textarea class="eod-textarea editable" id="eodMoved" placeholder="..."></textarea>
+        <div class="planner-section" id="anchor-upcoming">
+          <div class="eyebrow">📌 Upcoming</div>
+          <ul class="upcoming-list" id="upcomingList"></ul>
+          <button class="add-btn" id="addUpcoming">+ add a small task</button>
+        </div>
+
+        <div class="planner-section" style="border-bottom:none;">
+          <input class="focus-tag editable" id="focusTag" placeholder="🎨 KSD Client Work" />
+          <div class="save-status" id="saveStatus"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="eyebrow">For The Landing</div>
+        <ul class="brain-list" id="brainList"></ul>
+        <button class="add-btn" id="addThought">+ pin for later</button>
+        <div style="margin-top:8px;"><a class="card-link" href="landing.html">Open full list &rarr;</a></div>
+      </div>
+
+      <div class="card">
+        <div class="eyebrow">🌱 End of Day</div>
+        <div class="eod-block">
+          <label class="eod-label" for="eodMoved">What moved forward?</label>
+          <textarea class="eod-textarea editable" id="eodMoved" placeholder="..."></textarea>
+        </div>
+        <div class="eod-block">
+          <label class="eod-label" for="eodTomorrow">What is the first move on the next theme day?</label>
+          <textarea class="eod-textarea editable" id="eodTomorrow" placeholder="..."></textarea>
+        </div>
+      </div>
     </div>
-    <div class="eod-block">
-      <label class="eod-label" for="eodTomorrow">What is the first move on the next theme day?</label>
-      <textarea class="eod-textarea editable" id="eodTomorrow" placeholder="..."></textarea>
-    </div>
-  </section>
 
-  <div class="save-status" id="saveStatus"></div>
+  </div>
 </div>
 
 <script>

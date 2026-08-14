@@ -131,7 +131,6 @@
     loadEntryForViewDate();
     updateDateChrome();
     render();
-    requestAnimationFrame(drawString);
   }
 
   datePrevBtn.addEventListener('click', () => {
@@ -301,6 +300,21 @@
         scheduleSave();
       });
 
+      const toNow = document.createElement('button');
+      toNow.className = 'up-to-now';
+      toNow.type = 'button';
+      toNow.setAttribute('aria-label', 'Move to Now');
+      toNow.title = 'Move to Now';
+      toNow.textContent = '↓ Now';
+      toNow.addEventListener('click', () => {
+        state.now = item.text;
+        nowField.value = state.now;
+        state.upcoming.splice(idx, 1);
+        if (state.upcoming.length === 0) state.upcoming = [{ text: '', done: false }];
+        renderUpcoming();
+        scheduleSave();
+      });
+
       const remove = document.createElement('button');
       remove.className = 'up-remove';
       remove.setAttribute('aria-label', 'Remove task');
@@ -310,12 +324,12 @@
         if (state.upcoming.length === 0) state.upcoming = [{ text: '', done: false }];
         renderUpcoming();
         scheduleSave();
-        requestAnimationFrame(drawString);
       });
 
       li.appendChild(reorder);
       li.appendChild(check);
       li.appendChild(text);
+      li.appendChild(toNow);
       li.appendChild(remove);
       upcomingList.appendChild(li);
     });
@@ -350,7 +364,6 @@
         if (parkingLot.length === 0) parkingLot = [''];
         renderBrainDump();
         window.KSDLanding.save(parkingLot);
-        requestAnimationFrame(drawString);
       });
 
       li.appendChild(bullet);
@@ -376,7 +389,6 @@
     nowCheck.checked = false;
     renderUpcoming();
     scheduleSave();
-    requestAnimationFrame(drawString);
   });
 
   addUpcomingBtn.addEventListener('click', () => {
@@ -384,7 +396,6 @@
     renderUpcoming();
     const inputs = upcomingList.querySelectorAll('.up-text');
     if (inputs.length) inputs[inputs.length - 1].focus();
-    requestAnimationFrame(drawString);
   });
 
   addThoughtBtn.addEventListener('click', () => {
@@ -393,7 +404,6 @@
     window.KSDLanding.save(parkingLot);
     const inputs = brainList.querySelectorAll('.brain-text');
     if (inputs.length) inputs[inputs.length - 1].focus();
-    requestAnimationFrame(drawString);
   });
 
   focusTag.addEventListener('input', () => { state.focus = focusTag.value; scheduleSave(); });
@@ -401,49 +411,6 @@
   eodMoved.addEventListener('input', () => { state.eodMoved = eodMoved.value; scheduleSave(); });
   eodTomorrow.addEventListener('input', () => { state.eodTomorrow = eodTomorrow.value; scheduleSave(); });
 
-  // ---- Draw the kite string: a wandering thread through each section, knotted at anchors ----
-  function drawString() {
-    const svg = el('stringSvg');
-    const sheet = document.querySelector('.sheet');
-    const anchors = ['anchor-big3', 'anchor-timeblocks', 'anchor-now', 'anchor-upcoming', 'anchor-brain', 'anchor-eod']
-      .map((id) => el(id));
-
-    const sheetRect = sheet.getBoundingClientRect();
-    const height = sheetRect.height;
-    svg.setAttribute('viewBox', `0 0 30 ${height}`);
-    svg.style.height = height + 'px';
-
-    const points = anchors.map((a) => a.getBoundingClientRect().top - sheetRect.top + 26);
-
-    let d = `M 15 ${points[0]}`;
-    for (let i = 0; i < points.length - 1; i++) {
-      const y1 = points[i];
-      const y2 = points[i + 1];
-      const midY = (y1 + y2) / 2;
-      const sway = i % 2 === 0 ? 8 : -8;
-      d += ` C ${15 + sway} ${y1 + (midY - y1) * 0.6}, ${15 + sway} ${y2 - (y2 - midY) * 0.6}, 15 ${y2}`;
-    }
-
-    svg.innerHTML = '';
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path.setAttribute('d', d);
-    svg.appendChild(path);
-
-    points.forEach((y) => {
-      const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      c.setAttribute('cx', 15);
-      c.setAttribute('cy', y);
-      c.setAttribute('r', 3);
-      svg.appendChild(c);
-    });
-  }
-
-  window.addEventListener('resize', () => requestAnimationFrame(drawString));
-
   updateDateChrome();
   load();
-  requestAnimationFrame(() => {
-    drawString();
-    setTimeout(drawString, 150);
-  });
 })();

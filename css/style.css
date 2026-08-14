@@ -1,14 +1,15 @@
 /* ==========================================================================
-   Kite Strings Studio — Design System
-   Palette + type pulled from KSD_colors_and_fonts.pdf
-   Primary: tan #EAE8DE, lighter blue #586BA4, darker blue #324376
-   Highlight: yellow #F5DD90 (secondary accent: orange #F68E5F)
+   Kite Strings Studio — Design System v2
+   Palette + type pulled from KSD_colors_and_fonts.pdf + KSStudio_Today_Page.ai
+   Page background: darker blue #324376. Cards: tan #EAE8DE.
+   Highlight: yellow #F5DD90. Accent: orange #F68E5F, lighter blue #586BA4.
    Type: Roboto Slab (display) + Roboto (body/utility)
    ========================================================================== */
 
 :root {
-  --paper: #EAE8DE;
-  --paper-raised: #F5F3EA;
+  --page-bg: #324376;
+  --card-bg: #EAE8DE;
+  --card-bg-soft: #F5F3EA;
   --ink: #324376;
   --ink-soft: #6C76A0;
   --line: #D6D1BE;
@@ -24,140 +25,90 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: var(--paper);
+  background: var(--page-bg);
   color: var(--ink);
   font-family: 'Roboto', sans-serif;
 }
 
 body {
   min-height: 100vh;
-  padding: 48px 20px 80px;
-  background-image: radial-gradient(circle at 1px 1px, rgba(50, 67, 118, 0.05) 1px, transparent 0);
-  background-size: 22px 22px;
+  padding: 22px;
 }
 
-.sheet {
-  max-width: 620px;
+.page {
+  max-width: 1120px;
   margin: 0 auto;
-  position: relative;
-  background: var(--paper-raised);
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  box-shadow: 0 1px 2px rgba(50, 67, 118, 0.05), 0 12px 28px -18px rgba(50, 67, 118, 0.3);
-  padding: 44px 46px 40px 74px;
 }
 
-/* ---- Kite string: a single thread that runs top to bottom,
-       drifting slightly, knotted at each section anchor ---- */
-.string-svg {
-  position: absolute;
-  left: 30px;
-  top: 0;
-  width: 30px;
-  height: 100%;
-  overflow: visible;
-  pointer-events: none;
-}
-.string-svg path {
-  fill: none;
-  stroke: var(--blue);
-  stroke-width: 1.4;
-  stroke-linecap: round;
-  opacity: 0.55;
-}
-.string-svg circle {
-  fill: var(--yellow);
-  stroke: var(--blue);
-  stroke-width: 1.4;
-  opacity: 0.9;
+/* ---- Shared card shell ---- */
+.card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 26px 30px;
+  box-shadow: 0 10px 24px -16px rgba(0,0,0,0.35);
 }
 
-header.masthead {
+/* ---- Header card ---- */
+.header-card {
+  margin-bottom: 18px;
+  padding: 22px 30px;
+}
+.header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-img {
+  height: 44px;
+  width: auto;
+  display: block;
+}
+
+.room-title {
   text-align: center;
-  padding-bottom: 22px;
-  border-bottom: 1px solid var(--line);
-  margin-bottom: 26px;
+  flex: 1 1 auto;
+  min-width: 200px;
 }
-
-.brand {
+.room-title .name {
   font-family: 'Roboto Slab', serif;
-  font-weight: 600;
-  font-size: 26px;
-  letter-spacing: 0.01em;
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--ink);
+}
+.room-title .day {
+  font-family: 'Roboto Slab', serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 24px;
   color: var(--ink);
 }
 
-.tagline {
-  font-family: 'Roboto Slab', serif;
-  font-style: italic;
-  font-weight: 400;
-  color: var(--ink-soft);
-  font-size: 14.5px;
-  margin-top: 4px;
-}
-
-.meta-row {
+.header-date {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 16px;
-  flex-wrap: wrap;
-}
-
-/* Room switcher nav */
-.room-nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 6px;
-  margin-top: 18px;
-}
-.room-pill {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 500;
-  font-size: 11.5px;
-  letter-spacing: 0.02em;
-  text-decoration: none;
-  color: var(--ink-soft);
-  background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 5px 12px;
-  transition: border-color 0.15s ease, color 0.15s ease;
-}
-.room-pill:hover { border-color: var(--blue); color: var(--blue); }
-.room-pill.active {
-  background: var(--yellow);
-  border-color: var(--yellow-deep);
-  color: #5C3F14;
-  font-weight: 600;
-}
-
-.date-pill {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 500;
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  color: var(--ink-soft);
-  text-transform: uppercase;
-  border: none;
-  background: transparent;
-  text-align: center;
-  width: 130px;
-  padding: 3px 4px;
-  border-radius: 4px;
-}
-.date-pill::placeholder { color: #ABA6C0; text-transform: none; }
-
-.date-nav {
-  display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-end;
   gap: 6px;
 }
+.header-date .date-display {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--ink);
+  text-transform: none;
+  min-width: 0;
+}
+.date-nav { display: flex; align-items: center; gap: 6px; }
 .date-nav-btn {
   border: 1px solid var(--line);
-  background: var(--paper);
+  background: var(--card-bg);
   color: var(--ink-soft);
   width: 22px;
   height: 22px;
@@ -170,16 +121,6 @@ header.masthead {
   justify-content: center;
 }
 .date-nav-btn:hover { border-color: var(--blue); color: var(--blue); }
-.date-display {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 500;
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  color: var(--ink-soft);
-  text-transform: uppercase;
-  min-width: 150px;
-  text-align: center;
-}
 .today-jump {
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
@@ -218,17 +159,63 @@ header.masthead {
   min-width: 90px;
   text-align: center;
 }
-
 .focus-tag:focus, .editable:focus {
   outline: 2px solid var(--blue);
   outline-offset: 2px;
 }
 
-section {
-  padding: 22px 0;
-  border-bottom: 1px solid var(--line);
+/* Room switcher nav */
+.room-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 16px;
 }
-section:last-of-type { border-bottom: none; padding-bottom: 4px; }
+.room-pill {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: var(--ink-soft);
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 12px;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.room-pill:hover { border-color: var(--blue); color: var(--blue); }
+.room-pill.active {
+  background: var(--yellow);
+  border-color: var(--yellow-deep);
+  color: #5C3F14;
+  font-weight: 600;
+}
+
+/* ---- Two-column body layout ---- */
+.room-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 18px;
+  align-items: start;
+}
+.col-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+@media (max-width: 860px) {
+  .room-grid { grid-template-columns: 1fr; }
+  .header-top { justify-content: center; text-align: center; }
+  .header-date { align-items: center; }
+}
+
+/* ---- Section dividers inside combined planner card ---- */
+.planner-section { padding: 16px 0; border-bottom: 1px solid var(--line); }
+.planner-section:first-child { padding-top: 0; }
+.planner-section:last-child { border-bottom: none; padding-bottom: 0; }
 
 .eyebrow {
   font-family: 'Roboto', sans-serif;
@@ -295,7 +282,8 @@ section:last-of-type { border-bottom: none; padding-bottom: 4px; }
 .b3-item.done .b3-text { color: #A6A399; text-decoration: line-through; text-decoration-color: #C7C2B3; transition: opacity 0.3s ease; }
 
 /* Time Blocks */
-.timeblock-list { list-style: none; margin: 0; padding: 0; }
+.timeblocks-card { display: flex; flex-direction: column; }
+.timeblock-list { list-style: none; margin: 0; padding: 0; flex: 1 1 auto; overflow-y: auto; }
 .tb-item {
   display: flex;
   align-items: center;
@@ -367,7 +355,7 @@ section:last-of-type { border-bottom: none; padding-bottom: 4px; }
 
 /* Upcoming */
 .upcoming-list { list-style: none; margin: 0 0 10px; padding: 0; }
-.up-item { display: flex; align-items: center; gap: 8px; padding: 5px 0; }
+.up-item { display: flex; align-items: center; gap: 6px; padding: 5px 0; }
 .up-check {
   flex: 0 0 auto;
   width: 16px; height: 16px;
@@ -399,6 +387,17 @@ section:last-of-type { border-bottom: none; padding-bottom: 4px; }
   padding: 3px 2px;
 }
 .up-item.done .up-text { color: #A6A399; text-decoration: line-through; text-decoration-color: #C7C2B3; }
+.up-to-now {
+  flex: 0 0 auto;
+  border: none;
+  background: transparent;
+  color: var(--blue);
+  font-size: 13px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 2px 4px;
+}
+.up-to-now:hover { color: var(--yellow-deep); }
 .up-remove {
   flex: 0 0 auto;
   border: none;
@@ -411,7 +410,7 @@ section:last-of-type { border-bottom: none; padding-bottom: 4px; }
 }
 .up-remove:hover { color: var(--orange); }
 
-/* Brain dump */
+/* For The Landing */
 .brain-list { list-style: none; margin: 0 0 10px; padding: 0; }
 .brain-item { display: flex; align-items: center; gap: 10px; padding: 5px 0; }
 .brain-bullet { flex: 0 0 auto; width: 5px; height: 5px; border-radius: 50%; background: var(--orange); opacity: 0.7; }
@@ -467,7 +466,7 @@ section:last-of-type { border-bottom: none; padding-bottom: 4px; }
   min-height: 44px;
   resize: vertical;
   border: 1px solid var(--line);
-  background: #FCFBF6;
+  background: var(--card-bg-soft);
   border-radius: 6px;
   padding: 10px 12px;
   font-family: 'Roboto', sans-serif;
@@ -486,6 +485,15 @@ section:last-of-type { border-bottom: none; padding-bottom: 4px; }
   margin: 6px 0 20px;
 }
 
+.card-link {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 11.5px;
+  color: var(--blue);
+  text-decoration: none;
+}
+.card-link:hover { color: var(--yellow-deep); }
+
 .save-status {
   text-align: center;
   font-family: 'Roboto', sans-serif;
@@ -494,14 +502,14 @@ section:last-of-type { border-bottom: none; padding-bottom: 4px; }
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #B7B3A6;
-  margin-top: 22px;
+  margin-top: 14px;
   height: 14px;
   transition: opacity 0.4s ease;
 }
 
 @media (max-width: 560px) {
-  .sheet { padding: 38px 22px 32px 56px; }
-  .string-svg { left: 16px; width: 22px; }
+  body { padding: 14px; }
+  .card { padding: 20px 18px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

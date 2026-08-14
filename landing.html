@@ -10,12 +10,19 @@
 </head>
 <body>
 
-<div class="sheet">
-  <header class="masthead">
-    <div class="brand">Kite Strings Studio</div>
-    <div class="tagline">🧠 The Landing</div>
-    <div class="meta-row">
-      <span class="date-pill" style="width:auto;">shared across every room, every day</span>
+<div class="page">
+
+  <div class="card header-card">
+    <div class="header-top">
+      <div class="logo">
+        <img src="assets/logo.png" alt="Kite Strings Studio" class="logo-img" />
+      </div>
+      <div class="room-title">
+        <span class="name">The Landing</span>
+      </div>
+      <div class="header-date">
+        <span class="date-display" style="min-width:0;">shared, every room</span>
+      </div>
     </div>
     <nav class="room-nav">
       <a class="room-pill" href="today-lite-run.html">Lite Run</a>
@@ -23,18 +30,18 @@
       <a class="room-pill" href="today-ksd-templates.html">KSD Templates</a>
       <a class="room-pill" href="today-lifestyle.html">KSD Lifestyle</a>
       <a class="room-pill" href="today-visionary.html">Visionary Studio</a>
-      <a class="room-pill active" href="landing.html">🧠 The Landing</a>
+      <a class="room-pill active" href="landing.html">The Landing</a>
     </nav>
-  </header>
+  </div>
 
-  <section>
-    <div class="eyebrow">Things My Brain Tried to Make Me Do</div>
+  <div class="card">
+    <div class="eyebrow">For The Landing</div>
     <p class="router-message" style="margin-top:0;">Everything you caught mid-work, from any room, lands here. Clear it out whenever you're ready.</p>
     <ul class="brain-list" id="brainList"></ul>
     <button class="add-btn" id="addThought">+ pin for later</button>
-  </section>
+    <div class="save-status" id="saveStatus"></div>
+  </div>
 
-  <div class="save-status" id="saveStatus"></div>
 </div>
 
 <script src="js/landing-store.js"></script>
