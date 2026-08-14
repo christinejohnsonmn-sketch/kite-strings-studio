@@ -29,16 +29,31 @@ Whenever a new feature is tempting, ask: *would this make the studio feel calmer
 
 ## Structure
 
-- `index.html` — the **Today** room: Mission, Big Three, Now, Upcoming, brain dump, End of Day
-- `css/style.css` — the design system (KSD brand palette + type)
-- `js/app.js` — Today room behavior, saves one entry per day to `localStorage`
+- `index.html` — the **Router**: on load, checks the day of the week and sends you straight to that day's room. Runs once per visit to this page; it never re-fires once you're inside a room, so reloading mid-day never bounces you elsewhere. Weekends show a room picker instead of guessing.
+- `today-lite-run.html`, `today-ksd-client.html`, `today-ksd-templates.html`, `today-lifestyle.html`, `today-visionary.html` — the five themed Today rooms, each with its own Big Three, Time Blocks, Now, Upcoming, and End of Day, saved separately per business per day
+- `parking-lot.html` — the shared "Things My Brain Tried to Make Me Do" list, visible and editable from every room, any day
+- `css/style.css` — the design system (KSD brand palette + type) shared by every page
+- `js/today.js` — generic Today-room behavior, parameterized per business via a small inline `window.KSD_BUSINESS` config in each page
+- `js/parking-lot-store.js` — shared storage helper for the Parking Lot list
+- `js/parking-lot.js` — Parking Lot page behavior
+
+## Weekly rhythm
+
+| Day | Room |
+|---|---|
+| Monday | Lite Run |
+| Tuesday | KSD Client Work |
+| Wednesday | KSD Templates |
+| Thursday | KSD Lifestyle (Etsy Shop) |
+| Friday | Visionary Studio |
+| Weekend | Pick a room manually |
 
 ## Roadmap
 
 - [x] Sprint 1 — Design system (palette, type, components)
 - [x] Sprint 2 — Today room
-- [ ] Sprint 3 — Studio Wall (overview of all rooms)
-- [ ] Sprint 4 — Individual rooms: Lite Run, KSD Client, Template Shop, Lifestyle, CEO
+- [x] Sprint 3 (partial) — Day-of-week router, five themed Today rooms, shared Parking Lot
+- [ ] Sprint 4 — Studio Wall pages (per-business overview) and Room pages (per-business deep workspace)
 - [ ] Sprint 5 — Polish: motion, mobile refinement, maybe dark mode
 
 ## Brand

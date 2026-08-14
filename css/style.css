@@ -105,6 +105,35 @@ header.masthead {
   flex-wrap: wrap;
 }
 
+/* Room switcher nav */
+.room-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 18px;
+}
+.room-pill {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: var(--ink-soft);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 12px;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.room-pill:hover { border-color: var(--blue); color: var(--blue); }
+.room-pill.active {
+  background: var(--yellow);
+  border-color: var(--yellow-deep);
+  color: #5C3F14;
+  font-weight: 600;
+}
+
 .date-pill {
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
@@ -392,6 +421,15 @@ section:last-of-type { border-bottom: none; padding-bottom: 4px; }
   line-height: 1.5;
 }
 .eod-textarea::placeholder { color: #ABA6C0; }
+
+.router-message {
+  text-align: center;
+  font-family: 'Roboto Slab', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: var(--ink-soft);
+  margin: 6px 0 20px;
+}
 
 .save-status {
   text-align: center;

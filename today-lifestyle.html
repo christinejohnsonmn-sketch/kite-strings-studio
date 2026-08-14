@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kite Strings Studio — KSD Lifestyle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="sheet">
+  <svg class="string-svg" id="stringSvg" preserveAspectRatio="none"></svg>
+
+  <header class="masthead">
+    <div class="brand">Kite Strings Studio</div>
+    <div class="tagline">KSD Lifestyle — Thursdays</div>
+    <div class="meta-row">
+      <input class="date-pill editable" id="dateLabel" placeholder="Thursday" />
+      <input class="focus-tag editable" id="focusTag" placeholder="🎁 Etsy / Lifestyle" />
+    </div>
+    <nav class="room-nav">
+      <a class="room-pill" href="today-lite-run.html">Lite Run</a>
+      <a class="room-pill" href="today-ksd-client.html">KSD Client Work</a>
+      <a class="room-pill" href="today-ksd-templates.html">KSD Templates</a>
+      <a class="room-pill active" href="today-lifestyle.html">KSD Lifestyle</a>
+      <a class="room-pill" href="today-visionary.html">Visionary Studio</a>
+      <a class="room-pill" href="parking-lot.html">🧠 Parking Lot</a>
+    </nav>
+  </header>
+
+  <section id="anchor-big3">
+    <div class="eyebrow">⭐ Big Three</div>
+    <ul class="big-three-list" id="bigThreeList"></ul>
+  </section>
+
+  <section id="anchor-timeblocks">
+    <div class="eyebrow">🕐 Time Blocks</div>
+    <ul class="timeblock-list" id="timeBlockList"></ul>
+  </section>
+
+  <section id="anchor-now">
+    <div class="eyebrow">▶ Now</div>
+    <div class="now-row">
+      <input type="checkbox" class="now-check" id="nowCheck" aria-label="Mark current item done and pull the next one up" />
+      <input class="now-input editable" id="nowField" placeholder="What are you doing this very minute?" />
+    </div>
+  </section>
+
+  <section id="anchor-upcoming">
+    <div class="eyebrow">📌 Upcoming</div>
+    <ul class="upcoming-list" id="upcomingList"></ul>
+    <button class="add-btn" id="addUpcoming">+ add a small task</button>
+  </section>
+
+  <section id="anchor-brain">
+    <div class="eyebrow">🧠 Things My Brain Tried to Make Me Do</div>
+    <ul class="brain-list" id="brainList"></ul>
+    <button class="add-btn" id="addThought">+ catch a thought</button>
+    <p class="router-message" style="font-size:11px; margin-top:8px;">Shared with every room via the <a href="parking-lot.html" style="color:var(--blue);">Parking Lot</a>.</p>
+  </section>
+
+  <section id="anchor-eod">
+    <div class="eyebrow">🌱 End of Day</div>
+    <div class="eod-block">
+      <label class="eod-label" for="eodMoved">What moved forward?</label>
+      <textarea class="eod-textarea editable" id="eodMoved" placeholder="..."></textarea>
+    </div>
+    <div class="eod-block">
+      <label class="eod-label" for="eodTomorrow">What is the first move on the next theme day?</label>
+      <textarea class="eod-textarea editable" id="eodTomorrow" placeholder="..."></textarea>
+    </div>
+  </section>
+
+  <div class="save-status" id="saveStatus"></div>
+</div>
+
+<script>
+  window.KSD_BUSINESS = { slug: 'lifestyle', label: 'KSD Lifestyle', defaultFocus: '🎁 Etsy / Lifestyle' };
+</script>
+<script src="js/parking-lot-store.js"></script>
+<script src="js/today.js"></script>
+</body>
+</html>

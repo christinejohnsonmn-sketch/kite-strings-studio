@@ -1,8 +1,13 @@
 // ==========================================================================
-// Kite Strings Studio — Today room
-// Persists one entry per calendar day in localStorage.
+// Kite Strings Studio — Today room (generic, parameterized per business)
+// Expects window.KSD_BUSINESS = { slug, label, defaultFocus } to be set
+// by an inline <script> in the page before this file loads.
+// Persists one planner entry per business per calendar day in localStorage.
+// The brain-dump / "Parking Lot" list is shared across every business and day.
 // ==========================================================================
 (function () {
+  const business = window.KSD_BUSINESS || { slug: 'today', label: 'Today', defaultFocus: '' };
+
   const todayKey = () => {
     const d = new Date();
     const y = d.getFullYear();
@@ -10,7 +15,7 @@
     const day = String(d.getDate()).padStart(2, '0');
     return `${y}-${m}-${day}`;
   };
-  const storageKey = `ksd-entry:${todayKey()}`;
+  const storageKey = `ksd-entry:${business.slug}:${todayKey()}`;
 
   const dateLabelEl = document.getElementById('dateLabel');
   const autoDateLabel = new Date().toLocaleDateString(undefined, {
@@ -18,20 +23,18 @@
   });
 
   function buildDefaultTimeBlocks() {
-    const blocks = [];
     const labels = [
       '8:00 AM', '8:30 AM', '9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM',
       '11:00 AM', '11:30 AM', '12:00 PM', '12:30 PM', '1:00 PM', '1:30 PM',
       '2:00 PM', '2:30 PM', '3:00 PM', '3:30 PM', '4:00 PM', '4:30 PM',
       '5:00 PM', '5:30 PM', '6:00 PM'
     ];
-    labels.forEach((time) => blocks.push({ time, text: '' }));
-    return blocks;
+    return labels.map((time) => ({ time, text: '' }));
   }
 
   const defaultState = {
     dateLabel: autoDateLabel,
-    focus: '',
+    focus: business.defaultFocus || '',
     bigThree: [
       { text: '', done: false },
       { text: '', done: false },
@@ -40,12 +43,12 @@
     now: '',
     timeBlocks: buildDefaultTimeBlocks(),
     upcoming: [{ text: '', done: false }],
-    brainDump: [''],
     eodMoved: '',
     eodTomorrow: ''
   };
 
   let state = JSON.parse(JSON.stringify(defaultState));
+  let parkingLot = [];
 
   const el = (id) => document.getElementById(id);
   const focusTag = el('focusTag');
@@ -94,13 +97,11 @@
         if (!Array.isArray(state.upcoming) || state.upcoming.length === 0) {
           state.upcoming = [{ text: '', done: false }];
         }
-        if (!Array.isArray(state.brainDump) || state.brainDump.length === 0) {
-          state.brainDump = [''];
-        }
       }
     } catch (err) {
       // No existing entry for today — start fresh.
     }
+    parkingLot = window.KSDParkingLot.load();
     render();
   }
 
@@ -280,9 +281,10 @@
     });
   }
 
+  // Brain dump reads/writes the SHARED Parking Lot list, not per-day state.
   function renderBrainDump() {
     brainList.innerHTML = '';
-    state.brainDump.forEach((thought, idx) => {
+    parkingLot.forEach((thought, idx) => {
       const li = document.createElement('li');
       li.className = 'brain-item';
 
@@ -295,8 +297,8 @@
       text.placeholder = 'a stray thought...';
       text.value = thought;
       text.addEventListener('input', () => {
-        state.brainDump[idx] = text.value;
-        scheduleSave();
+        parkingLot[idx] = text.value;
+        scheduleSaveParkingLot();
       });
 
       const remove = document.createElement('button');
@@ -304,10 +306,10 @@
       remove.setAttribute('aria-label', 'Remove thought');
       remove.textContent = '✕';
       remove.addEventListener('click', () => {
-        state.brainDump.splice(idx, 1);
-        if (state.brainDump.length === 0) state.brainDump = [''];
+        parkingLot.splice(idx, 1);
+        if (parkingLot.length === 0) parkingLot = [''];
         renderBrainDump();
-        scheduleSave();
+        window.KSDParkingLot.save(parkingLot);
         requestAnimationFrame(drawString);
       });
 
@@ -316,6 +318,12 @@
       li.appendChild(remove);
       brainList.appendChild(li);
     });
+  }
+
+  let parkingLotSaveTimer = null;
+  function scheduleSaveParkingLot() {
+    clearTimeout(parkingLotSaveTimer);
+    parkingLotSaveTimer = setTimeout(() => window.KSDParkingLot.save(parkingLot), 400);
   }
 
   // ---- Now checkbox: check it to clear the current item and pull the next Upcoming item up ----
@@ -340,8 +348,9 @@
   });
 
   addThoughtBtn.addEventListener('click', () => {
-    state.brainDump.push('');
+    parkingLot.push('');
     renderBrainDump();
+    window.KSDParkingLot.save(parkingLot);
     const inputs = brainList.querySelectorAll('.brain-text');
     if (inputs.length) inputs[inputs.length - 1].focus();
     requestAnimationFrame(drawString);
