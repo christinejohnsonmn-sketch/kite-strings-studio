@@ -146,20 +146,7 @@ body {
 }
 .planning-note:empty { display: none; }
 
-.focus-tag {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 500;
-  font-size: 12px;
-  letter-spacing: 0.02em;
-  background: var(--yellow);
-  color: #6B5015;
-  border: 1px solid #E0C567;
-  border-radius: 999px;
-  padding: 3px 12px;
-  min-width: 90px;
-  text-align: center;
-}
-.focus-tag:focus, .editable:focus {
+.editable:focus {
   outline: 2px solid var(--blue);
   outline-offset: 2px;
 }
@@ -387,17 +374,6 @@ body {
   padding: 3px 2px;
 }
 .up-item.done .up-text { color: #A6A399; text-decoration: line-through; text-decoration-color: #C7C2B3; }
-.up-to-now {
-  flex: 0 0 auto;
-  border: none;
-  background: transparent;
-  color: var(--blue);
-  font-size: 13px;
-  cursor: pointer;
-  line-height: 1;
-  padding: 2px 4px;
-}
-.up-to-now:hover { color: var(--yellow-deep); }
 .up-remove {
   flex: 0 0 auto;
   border: none;

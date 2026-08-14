@@ -39,7 +39,6 @@
   }
 
   const defaultState = {
-    focus: business.defaultFocus || '',
     bigThree: [
       { text: '', done: false },
       { text: '', done: false },
@@ -56,10 +55,11 @@
   let parkingLot = [];
 
   const el = (id) => document.getElementById(id);
-  const focusTag = el('focusTag');
   const bigThreeList = el('bigThreeList');
   const nowField = el('nowField');
   const nowCheck = el('nowCheck');
+  const nowUpBtn = el('nowUp');
+  const nowDownBtn = el('nowDown');
   const timeBlockList = el('timeBlockList');
   const upcomingList = el('upcomingList');
   const addUpcomingBtn = el('addUpcoming');
@@ -146,7 +146,6 @@
   todayJumpBtn.addEventListener('click', () => goToDate(new Date()));
 
   function render() {
-    focusTag.value = state.focus;
     nowField.value = state.now;
     nowCheck.checked = false;
     eodMoved.value = state.eodMoved;
@@ -300,21 +299,6 @@
         scheduleSave();
       });
 
-      const toNow = document.createElement('button');
-      toNow.className = 'up-to-now';
-      toNow.type = 'button';
-      toNow.setAttribute('aria-label', 'Move to Now');
-      toNow.title = 'Move to Now';
-      toNow.textContent = '↓ Now';
-      toNow.addEventListener('click', () => {
-        state.now = item.text;
-        nowField.value = state.now;
-        state.upcoming.splice(idx, 1);
-        if (state.upcoming.length === 0) state.upcoming = [{ text: '', done: false }];
-        renderUpcoming();
-        scheduleSave();
-      });
-
       const remove = document.createElement('button');
       remove.className = 'up-remove';
       remove.setAttribute('aria-label', 'Remove task');
@@ -329,7 +313,6 @@
       li.appendChild(reorder);
       li.appendChild(check);
       li.appendChild(text);
-      li.appendChild(toNow);
       li.appendChild(remove);
       upcomingList.appendChild(li);
     });
@@ -391,6 +374,31 @@
     scheduleSave();
   });
 
+  // ---- Now ▲: pull the top Upcoming item into Now. If Now already holds
+  // something, it's swapped back to the top of Upcoming — nothing is lost. ----
+  nowUpBtn.addEventListener('click', () => {
+    const incoming = state.upcoming.shift();
+    if (!incoming) return;
+    if (state.now && state.now.trim()) {
+      state.upcoming.unshift({ text: state.now, done: false });
+    }
+    state.now = incoming.text || '';
+    if (state.upcoming.length === 0) state.upcoming = [{ text: '', done: false }];
+    nowField.value = state.now;
+    renderUpcoming();
+    scheduleSave();
+  });
+
+  // ---- Now ▼: send whatever's in Now back to the top of Upcoming, clearing Now. ----
+  nowDownBtn.addEventListener('click', () => {
+    if (!state.now || !state.now.trim()) return;
+    state.upcoming.unshift({ text: state.now, done: false });
+    state.now = '';
+    nowField.value = '';
+    renderUpcoming();
+    scheduleSave();
+  });
+
   addUpcomingBtn.addEventListener('click', () => {
     state.upcoming.push({ text: '', done: false });
     renderUpcoming();
@@ -406,7 +414,6 @@
     if (inputs.length) inputs[inputs.length - 1].focus();
   });
 
-  focusTag.addEventListener('input', () => { state.focus = focusTag.value; scheduleSave(); });
   nowField.addEventListener('input', () => { state.now = nowField.value; scheduleSave(); });
   eodMoved.addEventListener('input', () => { state.eodMoved = eodMoved.value; scheduleSave(); });
   eodTomorrow.addEventListener('input', () => { state.eodTomorrow = eodTomorrow.value; scheduleSave(); });

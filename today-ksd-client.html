@@ -57,6 +57,10 @@
         <div class="planner-section" id="anchor-now">
           <div class="eyebrow">▶ Now</div>
           <div class="now-row">
+            <span class="reorder-group">
+              <button type="button" class="reorder-btn" id="nowUp" aria-label="Pull the top Upcoming item into Now" title="Pull from Upcoming">&#9650;</button>
+              <button type="button" class="reorder-btn" id="nowDown" aria-label="Send this item back to Upcoming" title="Send to Upcoming">&#9660;</button>
+            </span>
             <input type="checkbox" class="now-check" id="nowCheck" aria-label="Mark current item done and pull the next one up" />
             <input class="now-input editable" id="nowField" placeholder="What are you doing this very minute?" />
           </div>
@@ -69,7 +73,6 @@
         </div>
 
         <div class="planner-section" style="border-bottom:none;">
-          <input class="focus-tag editable" id="focusTag" placeholder="🎨 KSD Client Work" />
           <div class="save-status" id="saveStatus"></div>
         </div>
       </div>
