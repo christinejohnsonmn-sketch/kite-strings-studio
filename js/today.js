@@ -17,10 +17,43 @@
   const storageKeyFor = (d) => `ksd-entry:${business.slug}:${dateKeyFor(d)}`;
   const isSameDay = (a, b) => dateKeyFor(a) === dateKeyFor(b);
 
+  // Which business "owns" each weekday — mirrors the router's DAY_MAP.
+  // Used so the ‹ › arrows and Today button can hop to the *correct room's
+  // page* when you navigate across a day whose theme differs from this one.
+  const DAY_MAP = {
+    1: { slug: 'lite-run', file: 'today-lite-run.html' },
+    2: { slug: 'ksd-client', file: 'today-ksd-client.html' },
+    3: { slug: 'ksd-templates', file: 'today-ksd-templates.html' },
+    4: { slug: 'lifestyle', file: 'today-lifestyle.html' },
+    5: { slug: 'visionary', file: 'today-visionary.html' }
+  };
+
+  function parseDateKey(key) {
+    const parts = key.split('-').map(Number);
+    if (parts.length !== 3) return null;
+    const d = new Date(parts[0], parts[1] - 1, parts[2]);
+    return isNaN(d.getTime()) ? null : d;
+  }
+
+  function initialViewDate() {
+    const params = new URLSearchParams(window.location.search);
+    const dateParam = params.get('date');
+    if (dateParam) {
+      const parsed = parseDateKey(dateParam);
+      if (parsed) {
+        // Clean the URL so a later manual refresh of this same page
+        // defaults back to the real today, not this one planned date.
+        window.history.replaceState({}, '', window.location.pathname);
+        return parsed;
+      }
+    }
+    return new Date();
+  }
+
   // viewDate is the date currently being displayed/edited — defaults to
   // the real today, but the ‹ › arrows can move it forward or back so you
   // can plan a future day (or revisit a past one) without losing today's entry.
-  let viewDate = new Date();
+  let viewDate = initialViewDate();
 
   const dateDisplayEl = document.getElementById('dateDisplay');
   const datePrevBtn = document.getElementById('datePrev');
@@ -133,17 +166,30 @@
     render();
   }
 
+  // Navigate to newDate. If newDate's weekday belongs to a *different* room
+  // than this page, hop over to that room's file with the date carried along
+  // — that's how "Friday, arrow ahead to Monday" ends up showing Lite Run.
+  // Weekends have no assigned room, so those just update in place.
+  function navigateToDate(newDate) {
+    const mapped = DAY_MAP[newDate.getDay()];
+    if (mapped && mapped.slug !== business.slug) {
+      window.location.href = `${mapped.file}?date=${dateKeyFor(newDate)}`;
+      return;
+    }
+    goToDate(newDate);
+  }
+
   datePrevBtn.addEventListener('click', () => {
     const d = new Date(viewDate);
     d.setDate(d.getDate() - 1);
-    goToDate(d);
+    navigateToDate(d);
   });
   dateNextBtn.addEventListener('click', () => {
     const d = new Date(viewDate);
     d.setDate(d.getDate() + 1);
-    goToDate(d);
+    navigateToDate(d);
   });
-  todayJumpBtn.addEventListener('click', () => goToDate(new Date()));
+  todayJumpBtn.addEventListener('click', () => navigateToDate(new Date()));
 
   function render() {
     nowField.value = state.now;
