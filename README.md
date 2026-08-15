@@ -30,12 +30,15 @@ Whenever a new feature is tempting, ask: *would this make the studio feel calmer
 ## Structure
 
 - `index.html` — the **Router**: on load, checks the day of the week and sends you straight to that day's room. Runs once per visit to this page; it never re-fires once you're inside a room, so reloading mid-day never bounces you elsewhere. Weekends show a room picker instead of guessing.
-- `today-lite-run.html`, `today-ksd-client.html`, `today-ksd-templates.html`, `today-lifestyle.html`, `today-visionary.html` — the five themed Today rooms. Two-column layout: a tall Time Blocks card on the left, and a stack on the right (Big Three / Now / Upcoming combined, For The Landing, End of Day). Saved separately per business per day, with a date navigator to plan future days ahead of time.
+- `studio-wall.html` — **Studio Wall**: five cards, one per business, each with an editable one-line orientation-panel mission (saved to localStorage) and a link into that room. The card for whichever business owns today gets a "Today's room" badge.
+- `today-lite-run.html`, `today-ksd-client.html`, `today-ksd-templates.html`, `today-lifestyle.html`, `today-visionary.html` — the five themed Today rooms. Two-column layout: a tall Time Blocks card on the left, and a stack on the right (Big Three / Now / Upcoming combined, For The Landing, End of Day). Saved separately per business per day, with a date navigator to plan future days ahead of time. Arrowing across into a different theme day's date jumps you to that room's own page.
 - `landing.html` — **The Landing**: the shared caught-thoughts list, visible and editable from every room, any day
 - `css/style.css` — the design system (KSD brand palette + type). v2: navy page background (`#324376`), tan rounded cards (`#EAE8DE`), matching `KSStudio_Today_Page.ai`
 - `js/today.js` — generic Today-room behavior, parameterized per business via a small inline `window.KSD_BUSINESS` config in each page
+- `js/studio-wall.js` — Studio Wall card rendering and per-room mission persistence
 - `js/landing-store.js` — shared storage helper for The Landing list
 - `js/landing.js` — The Landing page behavior
+- `assets/logo.png` — the real Kite Strings Studio logo
 
 ## Weekly rhythm
 
@@ -53,8 +56,9 @@ Whenever a new feature is tempting, ask: *would this make the studio feel calmer
 - [x] Sprint 1 — Design system (palette, type, components)
 - [x] Sprint 2 — Today room
 - [x] Sprint 3 — Day-of-week router, five themed Today rooms, shared caught-thoughts list (The Landing), date navigator for planning ahead
-- [x] Sprint 3.5 — Visual redesign to match `KSStudio_Today_Page.ai`: navy page, tan cards, two-column layout, logo placeholder (swap in CJ's real logo file when available)
-- [ ] Sprint 4 — Studio Wall pages (per-business overview) and Room pages (per-business deep workspace)
+- [x] Sprint 3.5 — Visual redesign to match `KSStudio_Today_Page.ai`: navy page, tan cards, two-column layout, real logo
+- [x] Sprint 3.75 — Studio Wall: five business cards with editable orientation-panel missions
+- [ ] Sprint 4 — Individual Room pages (per-business deep workspace, separate from the daily Today planner)
 - [ ] Sprint 5 — Polish: motion, mobile refinement, maybe dark mode
 
 ## Brand

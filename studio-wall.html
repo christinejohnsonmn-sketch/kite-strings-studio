@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kite Strings Studio — The Landing</title>
+<title>Kite Strings Studio — Studio Wall</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
@@ -18,35 +18,30 @@
         <img src="assets/logo.png" alt="Kite Strings Studio" class="logo-img" />
       </div>
       <div class="room-title">
-        <span class="name">The Landing</span>
+        <span class="name">Studio Wall</span>
       </div>
       <div class="header-date">
-        <span class="date-display" style="min-width:0;">shared, every room</span>
+        <span class="date-display" style="min-width:0;">your overview wall</span>
       </div>
     </div>
     <nav class="room-nav">
       <a class="room-pill" href="index.html">🏠 Today</a>
-      <a class="room-pill" href="studio-wall.html">🖼️ Studio Wall</a>
+      <a class="room-pill active" href="studio-wall.html">🖼️ Studio Wall</a>
       <a class="room-pill" href="today-lite-run.html">Lite Run</a>
       <a class="room-pill" href="today-ksd-client.html">KSD Client Work</a>
       <a class="room-pill" href="today-ksd-templates.html">KSD Templates</a>
       <a class="room-pill" href="today-lifestyle.html">KSD Lifestyle</a>
       <a class="room-pill" href="today-visionary.html">Visionary Studio</a>
-      <a class="room-pill active" href="landing.html">The Landing</a>
+      <a class="room-pill" href="landing.html">The Landing</a>
     </nav>
   </div>
 
-  <div class="card">
-    <div class="eyebrow">For The Landing</div>
-    <p class="router-message" style="margin-top:0;">Everything you caught mid-work, from any room, lands here. Clear it out whenever you're ready.</p>
-    <ul class="brain-list" id="brainList"></ul>
-    <button class="add-btn" id="addThought">+ pin for later</button>
-    <div class="save-status" id="saveStatus"></div>
-  </div>
+  <p class="router-message">Everything has a home. One room is on the worktable today — the rest are here on the wall until you need them.</p>
+
+  <div class="wall-grid" id="wallGrid"></div>
 
 </div>
 
-<script src="js/landing-store.js"></script>
-<script src="js/landing.js"></script>
+<script src="js/studio-wall.js"></script>
 </body>
 </html>

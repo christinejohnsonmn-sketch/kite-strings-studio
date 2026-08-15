@@ -470,6 +470,66 @@ body {
 }
 .card-link:hover { color: var(--yellow-deep); }
 
+/* Studio Wall */
+.wall-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+.wall-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.wall-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.wall-card-icon { font-size: 28px; line-height: 1; }
+.today-badge {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--yellow);
+  color: #5C3F14;
+  border-radius: 999px;
+  padding: 3px 9px;
+}
+.wall-card-name {
+  font-family: 'Roboto Slab', serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--ink);
+}
+.wall-card-day {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-top: -6px;
+}
+.wall-card-mission {
+  width: 100%;
+  resize: vertical;
+  min-height: 52px;
+  border: 1px solid var(--line);
+  background: var(--card-bg-soft);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-family: 'Roboto Slab', serif;
+  font-style: italic;
+  font-size: 13.5px;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.wall-card-mission::placeholder { color: #ABA6C0; font-style: italic; }
+.wall-enter-link { margin-top: 2px; }
+
 .save-status {
   text-align: center;
   font-family: 'Roboto', sans-serif;
