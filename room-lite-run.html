@@ -52,19 +52,39 @@
 
 <script src="js/list-block.js"></script>
 <script>
-  // ---- Social Media: two fixed, non-editable, non-removable recurring items ----
+  // ---- Social Media: two fixed, non-editable, non-removable recurring items.
+  // They auto-reset to unchecked at the start of each week (Monday), so
+  // checking them off never makes them disappear for good — just for that week. ----
   (function () {
     const KEY = 'ksd-social-static:lite-run';
-    const DEFAULT_STATE = { tuesday: false, thursday: false };
+    const DEFAULT_STATE = { tuesday: false, thursday: false, weekKey: '' };
+
+    function mondayKeyFor(d) {
+      const date = new Date(d);
+      const day = date.getDay(); // 0 = Sunday ... 6 = Saturday
+      const diff = day === 0 ? -6 : 1 - day; // days back to this week's Monday
+      date.setDate(date.getDate() + diff);
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, '0');
+      const dd = String(date.getDate()).padStart(2, '0');
+      return `${y}-${m}-${dd}`;
+    }
+
     let state = DEFAULT_STATE;
     try {
       const raw = localStorage.getItem(KEY);
       if (raw) state = Object.assign({}, DEFAULT_STATE, JSON.parse(raw));
     } catch (err) { /* ignore */ }
 
+    const currentWeekKey = mondayKeyFor(new Date());
+    if (state.weekKey !== currentWeekKey) {
+      state = { tuesday: false, thursday: false, weekKey: currentWeekKey };
+    }
+
     function save() {
       try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (err) { /* ignore */ }
     }
+    save();
 
     const items = [
       { key: 'tuesday', label: 'Schedule Tuesday post' },
