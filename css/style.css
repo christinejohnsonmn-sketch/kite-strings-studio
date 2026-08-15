@@ -524,16 +524,16 @@ body {
   border-top: 1px solid var(--line);
 }
 
-.wall-list-block { margin-top: 4px; }
-.wall-list-block .eyebrow { margin-bottom: 6px; }
-.wall-mini-list { list-style: none; margin: 0 0 6px; padding: 0; }
-.wall-mini-item {
+.list-block { margin-top: 4px; }
+.list-block .eyebrow { margin-bottom: 6px; }
+.mini-list { list-style: none; margin: 0 0 6px; padding: 0; }
+.mini-item {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 3px 0;
 }
-.wall-mini-text {
+.mini-text {
   flex: 1 1 auto;
   border: none;
   background: transparent;
@@ -543,11 +543,60 @@ body {
   padding: 2px;
   border-bottom: 1px dashed transparent;
 }
-.wall-mini-text:focus { border-bottom: 1px dashed var(--line); }
-.wall-mini-text::placeholder { color: #B7B3A6; }
-.wall-add-btn { font-size: 11px; padding: 4px 10px; }
+.mini-text:focus { border-bottom: 1px dashed var(--line); }
+.mini-text::placeholder { color: #B7B3A6; }
+.mini-add-btn { font-size: 11px; padding: 4px 10px; }
 
 .wall-enter-link { margin-top: 6px; }
+
+.room-lists-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  align-items: start;
+}
+
+.task-list { list-style: none; margin: 0; padding: 0; }
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 0;
+  border-bottom: 1px solid #EEEBE0;
+}
+.task-item:last-child { border-bottom: none; }
+.task-item.done .b3-text { color: #A6A399; text-decoration: line-through; text-decoration-color: #C7C2B3; }
+.task-due {
+  flex: 0 0 auto;
+  font-family: 'Roboto', sans-serif;
+  font-size: 11px;
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 3px 5px;
+  background: var(--card-bg-soft);
+  max-width: 118px;
+}
+.task-urgent-dot {
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--yellow);
+  box-shadow: 0 0 0 2px rgba(245, 221, 144, 0.35);
+}
+
+.static-task-list { list-style: none; margin: 0 0 4px; padding: 0; }
+.static-task-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+}
+.static-task-item.done .static-task-label { color: #A6A399; text-decoration: line-through; text-decoration-color: #C7C2B3; }
+.static-task-label { font-family: 'Roboto', sans-serif; font-size: 14.5px; color: var(--ink); }
+.room-subdivider { border: none; border-top: 1px solid var(--line); margin: 14px 0; }
+.sub-eyebrow { margin-top: 2px; }
 
 .save-status {
   text-align: center;

@@ -35,7 +35,9 @@ Whenever a new feature is tempting, ask: *would this make the studio feel calmer
 - `landing.html` — **The Landing**: the shared caught-thoughts list, visible and editable from every room, any day
 - `css/style.css` — the design system (KSD brand palette + type). v2: navy page background (`#324376`), tan rounded cards (`#EAE8DE`), matching `KSStudio_Today_Page.ai`
 - `js/today.js` — generic Today-room behavior, parameterized per business via a small inline `window.KSD_BUSINESS` config in each page
-- `js/studio-wall.js` — Studio Wall card rendering and per-room mission persistence
+- `js/studio-wall.js` — Studio Wall card rendering and per-room status
+- `room-lite-run.html` — the **Lite Run Room**: three simple editable lists (Website, Social Media, Misc). Separate from the daily Today planner — this is the standing reference space for that business, not tied to any date.
+- `js/list-block.js` — shared editable-list builder used by Studio Wall's Active Projects/Waiting/Ideas and by Room pages' lists — one implementation, reused everywhere a simple add/remove list is needed.
 - `js/landing-store.js` — shared storage helper for The Landing list
 - `js/landing.js` — The Landing page behavior
 - `assets/logo.png` — the real Kite Strings Studio logo
@@ -57,8 +59,8 @@ Whenever a new feature is tempting, ask: *would this make the studio feel calmer
 - [x] Sprint 2 — Today room
 - [x] Sprint 3 — Day-of-week router, five themed Today rooms, shared caught-thoughts list (The Landing), date navigator for planning ahead
 - [x] Sprint 3.5 — Visual redesign to match `KSStudio_Today_Page.ai`: navy page, tan cards, two-column layout, real logo
-- [x] Sprint 3.75 — Studio Wall: five business cards with editable orientation-panel missions
-- [ ] Sprint 4 — Individual Room pages (per-business deep workspace, separate from the daily Today planner)
+- [x] Sprint 3.75 — Studio Wall: five business cards with Active Projects, Waiting, Ideas, and Last Touched
+- [ ] Sprint 4 — Individual Room pages (in progress: Lite Run done — Website / Social Media / Misc; KSD Client Work, KSD Templates, KSD Lifestyle, Visionary Studio still to build)
 - [ ] Sprint 5 — Polish: motion, mobile refinement, maybe dark mode
 
 ## Brand

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kite Strings Studio — Lite Run Room</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="page">
+
+  <div class="card header-card">
+    <div class="header-top">
+      <div class="logo">
+        <img src="assets/logo.png" alt="Kite Strings Studio" class="logo-img" />
+      </div>
+      <div class="room-title">
+        <span class="name">Lite Run —</span> <span class="day">Room</span>
+      </div>
+      <div class="header-date">
+        <span class="date-display" style="min-width:0;"><a class="card-link" href="today-lite-run.html">→ Today's tasks</a></span>
+      </div>
+    </div>
+    <nav class="room-nav">
+      <a class="room-pill" href="index.html">🏠 Today</a>
+      <a class="room-pill" href="studio-wall.html">🖼️ Studio Wall</a>
+      <a class="room-pill active" href="today-lite-run.html">Lite Run</a>
+      <a class="room-pill" href="today-ksd-client.html">KSD Client Work</a>
+      <a class="room-pill" href="today-ksd-templates.html">KSD Templates</a>
+      <a class="room-pill" href="today-lifestyle.html">KSD Lifestyle</a>
+      <a class="room-pill" href="today-visionary.html">Visionary Studio</a>
+      <a class="room-pill" href="landing.html">The Landing</a>
+    </nav>
+  </div>
+
+  <div class="room-lists-grid">
+    <div class="card" id="socialCard">
+      <div class="eyebrow">📣 Social Media</div>
+      <ul class="static-task-list" id="socialStaticList"></ul>
+      <hr class="room-subdivider" />
+      <div id="contentIdeasHolder"></div>
+    </div>
+
+    <div class="card" id="websiteCard"></div>
+    <div class="card" id="miscCard"></div>
+  </div>
+
+</div>
+
+<script src="js/list-block.js"></script>
+<script>
+  // ---- Social Media: two fixed, non-editable, non-removable recurring items ----
+  (function () {
+    const KEY = 'ksd-social-static:lite-run';
+    const DEFAULT_STATE = { tuesday: false, thursday: false };
+    let state = DEFAULT_STATE;
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (raw) state = Object.assign({}, DEFAULT_STATE, JSON.parse(raw));
+    } catch (err) { /* ignore */ }
+
+    function save() {
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (err) { /* ignore */ }
+    }
+
+    const items = [
+      { key: 'tuesday', label: 'Schedule Tuesday post' },
+      { key: 'thursday', label: 'Schedule Thursday post' }
+    ];
+
+    const list = document.getElementById('socialStaticList');
+    items.forEach((def) => {
+      const li = document.createElement('li');
+      li.className = 'static-task-item' + (state[def.key] ? ' done' : '');
+
+      const check = document.createElement('input');
+      check.type = 'checkbox';
+      check.className = 'b3-check';
+      check.checked = !!state[def.key];
+      check.addEventListener('change', () => {
+        state[def.key] = check.checked;
+        li.classList.toggle('done', check.checked);
+        save();
+      });
+
+      const label = document.createElement('span');
+      label.className = 'static-task-label';
+      label.textContent = def.label;
+
+      li.appendChild(check);
+      li.appendChild(label);
+      list.appendChild(li);
+    });
+  })();
+
+  // ---- Content Ideas: plain catch-all list, no sorting ----
+  document.getElementById('contentIdeasHolder').appendChild(
+    window.KSDListBlock.build('💡 Content Ideas', 'ksd-room-list:lite-run:content-ideas', 'a content idea...')
+  );
+
+  // ---- Website & Misc: checkbox + reorder + optional due date ----
+  document.getElementById('websiteCard').appendChild(
+    window.KSDTaskList.build('🌐 Website', 'ksd-room-list:lite-run:website', {
+      placeholder: 'a website task or note...',
+      allowDue: true
+    })
+  );
+  document.getElementById('miscCard').appendChild(
+    window.KSDTaskList.build('📎 Misc', 'ksd-room-list:lite-run:misc', {
+      placeholder: 'anything else...',
+      allowDue: true
+    })
+  );
+</script>
+</body>
+</html>

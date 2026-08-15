@@ -1,17 +1,13 @@
 // ==========================================================================
 // Kite Strings Studio — Studio Wall
 // Five business cards. Each shows real status, not decoration:
+//   - Active Projects / Waiting / Ideas: editable lists (via KSDListBlock)
 //   - Last Touched: the most recent date you actually entered something
 //     on that room's Today page (scanned from its saved entries)
-//   - Active Projects: what's actually in motion for that business
-//   - Waiting: things someone else owes you for that business
-//   - Ideas: someday/maybe thoughts for that business
-// Active Projects, Waiting, and Ideas persist per business in localStorage,
-// editable inline, same pattern as everywhere else in the app.
 // ==========================================================================
 (function () {
   const ROOMS = [
-    { slug: 'lite-run', label: 'Lite Run', day: 'Monday', icon: '🪁', file: 'today-lite-run.html' },
+    { slug: 'lite-run', label: 'Lite Run', day: 'Monday', icon: '🪁', file: 'room-lite-run.html' },
     { slug: 'ksd-client', label: 'KSD Client Work', day: 'Tuesday', icon: '🎨', file: 'today-ksd-client.html' },
     { slug: 'ksd-templates', label: 'KSD Templates', day: 'Wednesday', icon: '🧩', file: 'today-ksd-templates.html' },
     { slug: 'lifestyle', label: 'KSD Lifestyle', day: 'Thursday', icon: '🎁', file: 'today-lifestyle.html' },
@@ -50,95 +46,6 @@
     return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
   }
 
-  function loadList(key) {
-    try {
-      const raw = localStorage.getItem(key);
-      const items = raw ? JSON.parse(raw) : [];
-      return Array.isArray(items) ? items : [];
-    } catch (err) {
-      return [];
-    }
-  }
-
-  function saveList(key, items) {
-    try {
-      localStorage.setItem(key, JSON.stringify(items));
-    } catch (err) {
-      // ignore
-    }
-  }
-
-  // Builds one editable list block (Waiting or Ideas) for a card.
-  function buildListBlock(label, storageKey, addPlaceholder) {
-    let items = loadList(storageKey);
-    const block = document.createElement('div');
-    block.className = 'wall-list-block';
-
-    const heading = document.createElement('div');
-    heading.className = 'eyebrow';
-    heading.textContent = label;
-    block.appendChild(heading);
-
-    const ul = document.createElement('ul');
-    ul.className = 'wall-mini-list';
-    block.appendChild(ul);
-
-    function renderList() {
-      ul.innerHTML = '';
-      items.forEach((text, idx) => {
-        const li = document.createElement('li');
-        li.className = 'wall-mini-item';
-
-        const bullet = document.createElement('span');
-        bullet.className = 'brain-bullet';
-
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.className = 'wall-mini-text editable';
-        input.placeholder = addPlaceholder;
-        input.value = text;
-        let saveTimer = null;
-        input.addEventListener('input', () => {
-          items[idx] = input.value;
-          clearTimeout(saveTimer);
-          saveTimer = setTimeout(() => saveList(storageKey, items), 400);
-        });
-
-        const remove = document.createElement('button');
-        remove.className = 'brain-remove';
-        remove.type = 'button';
-        remove.setAttribute('aria-label', 'Remove');
-        remove.textContent = '✕';
-        remove.addEventListener('click', () => {
-          items.splice(idx, 1);
-          renderList();
-          saveList(storageKey, items);
-        });
-
-        li.appendChild(bullet);
-        li.appendChild(input);
-        li.appendChild(remove);
-        ul.appendChild(li);
-      });
-    }
-
-    const addBtn = document.createElement('button');
-    addBtn.className = 'add-btn wall-add-btn';
-    addBtn.type = 'button';
-    addBtn.textContent = '+ add';
-    addBtn.addEventListener('click', () => {
-      items.push('');
-      renderList();
-      saveList(storageKey, items);
-      const inputs = ul.querySelectorAll('.wall-mini-text');
-      if (inputs.length) inputs[inputs.length - 1].focus();
-    });
-    block.appendChild(addBtn);
-
-    renderList();
-    return block;
-  }
-
   ROOMS.forEach((room) => {
     const card = document.createElement('div');
     card.className = 'card wall-card';
@@ -172,9 +79,9 @@
     touched.className = 'wall-card-touched';
     touched.textContent = `Last touched: ${lastTouched(room.slug)}`;
 
-    const activeBlock = buildListBlock('Active Projects', `ksd-active:${room.slug}`, 'a project in motion...');
-    const waitingBlock = buildListBlock('Waiting', `ksd-waiting:${room.slug}`, 'who or what are you waiting on...');
-    const ideasBlock = buildListBlock('Ideas', `ksd-ideas:${room.slug}`, 'a someday idea...');
+    const activeBlock = window.KSDListBlock.build('Active Projects', `ksd-active:${room.slug}`, 'a project in motion...');
+    const waitingBlock = window.KSDListBlock.build('Waiting', `ksd-waiting:${room.slug}`, 'who or what are you waiting on...');
+    const ideasBlock = window.KSDListBlock.build('Ideas', `ksd-ideas:${room.slug}`, 'a someday idea...');
 
     const enter = document.createElement('a');
     enter.className = 'card-link wall-enter-link';
