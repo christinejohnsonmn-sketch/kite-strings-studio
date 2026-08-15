@@ -473,8 +473,9 @@ body {
 /* Studio Wall */
 .wall-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 18px;
+  align-items: start;
 }
 .wall-card {
   display: flex;
@@ -513,22 +514,40 @@ body {
   color: var(--ink-soft);
   margin-top: -6px;
 }
-.wall-card-mission {
-  width: 100%;
-  resize: vertical;
-  min-height: 52px;
-  border: 1px solid var(--line);
-  background: var(--card-bg-soft);
-  border-radius: 8px;
-  padding: 10px 12px;
-  font-family: 'Roboto Slab', serif;
-  font-style: italic;
-  font-size: 13.5px;
-  color: var(--ink);
-  line-height: 1.5;
+.wall-card-touched {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  color: var(--ink-soft);
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
 }
-.wall-card-mission::placeholder { color: #ABA6C0; font-style: italic; }
-.wall-enter-link { margin-top: 2px; }
+
+.wall-list-block { margin-top: 4px; }
+.wall-list-block .eyebrow { margin-bottom: 6px; }
+.wall-mini-list { list-style: none; margin: 0 0 6px; padding: 0; }
+.wall-mini-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 0;
+}
+.wall-mini-text {
+  flex: 1 1 auto;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  color: var(--ink);
+  font-family: 'Roboto', sans-serif;
+  padding: 2px;
+  border-bottom: 1px dashed transparent;
+}
+.wall-mini-text:focus { border-bottom: 1px dashed var(--line); }
+.wall-mini-text::placeholder { color: #B7B3A6; }
+.wall-add-btn { font-size: 11px; padding: 4px 10px; }
+
+.wall-enter-link { margin-top: 6px; }
 
 .save-status {
   text-align: center;
