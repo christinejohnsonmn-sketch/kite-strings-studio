@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kite Strings Studio — KSD Templates Room</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="page">
+
+  <div class="card header-card">
+    <div class="header-top">
+      <div class="logo">
+        <img src="assets/logo.png" alt="Kite Strings Studio" class="logo-img" />
+      </div>
+      <div class="room-title">
+        <span class="name">KSD Templates —</span> <span class="day">Room</span>
+      </div>
+      <div class="header-date">
+        <span class="date-display" style="min-width:0;"><a class="card-link" href="today-ksd-templates.html">→ Today's tasks</a></span>
+      </div>
+    </div>
+    <nav class="room-nav">
+      <a class="room-pill" href="index.html">🏠 Today</a>
+      <a class="room-pill" href="studio-wall.html">🖼️ Studio Wall</a>
+      <a class="room-pill" href="today-lite-run.html">Lite Run</a>
+      <a class="room-pill" href="today-ksd-client.html">KSD Client Work</a>
+      <a class="room-pill active" href="today-ksd-templates.html">KSD Templates</a>
+      <a class="room-pill" href="today-lifestyle.html">KSD Lifestyle</a>
+      <a class="room-pill" href="today-visionary.html">Visionary Studio</a>
+      <a class="room-pill" href="landing.html">The Landing</a>
+    </nav>
+  </div>
+
+  <div class="room-lists-grid">
+    <div class="card" id="productCard"></div>
+    <div class="card" id="websiteCard"></div>
+    <div class="card" id="cxCard"></div>
+    <div class="card" id="marketingCard"></div>
+    <div class="card" id="futureCard"></div>
+  </div>
+
+</div>
+
+<script src="js/list-block.js"></script>
+<script>
+  document.getElementById('productCard').appendChild(
+    window.KSDTaskList.build('🧩 Product', 'ksd-room-list:ksd-templates:product', {
+      placeholder: 'a product task or note...',
+      allowDue: true
+    })
+  );
+  document.getElementById('websiteCard').appendChild(
+    window.KSDTaskList.build('🌐 Website', 'ksd-room-list:ksd-templates:website', {
+      placeholder: 'a website task or note...',
+      allowDue: true
+    })
+  );
+  document.getElementById('cxCard').appendChild(
+    window.KSDTaskList.build('💬 Customer Experience', 'ksd-room-list:ksd-templates:cx', {
+      placeholder: 'a customer experience task or note...',
+      allowDue: true
+    })
+  );
+  document.getElementById('marketingCard').appendChild(
+    window.KSDTaskList.build('📣 Marketing', 'ksd-room-list:ksd-templates:marketing', {
+      placeholder: 'a marketing task or note...',
+      allowDue: true
+    })
+  );
+  document.getElementById('futureCard').appendChild(
+    window.KSDTaskList.build('🔮 Future Products', 'ksd-room-list:ksd-templates:future-products', {
+      placeholder: 'a future product idea...',
+      allowDue: true
+    })
+  );
+</script>
+</body>
+</html>

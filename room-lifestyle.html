@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kite Strings Studio — KSD Lifestyle Room</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="page">
+
+  <div class="card header-card">
+    <div class="header-top">
+      <div class="logo">
+        <img src="assets/logo.png" alt="Kite Strings Studio" class="logo-img" />
+      </div>
+      <div class="room-title">
+        <span class="name">KSD Lifestyle —</span> <span class="day">Room</span>
+      </div>
+      <div class="header-date">
+        <span class="date-display" style="min-width:0;"><a class="card-link" href="today-lifestyle.html">→ Today's tasks</a></span>
+      </div>
+    </div>
+    <nav class="room-nav">
+      <a class="room-pill" href="index.html">🏠 Today</a>
+      <a class="room-pill" href="studio-wall.html">🖼️ Studio Wall</a>
+      <a class="room-pill" href="today-lite-run.html">Lite Run</a>
+      <a class="room-pill" href="today-ksd-client.html">KSD Client Work</a>
+      <a class="room-pill" href="today-ksd-templates.html">KSD Templates</a>
+      <a class="room-pill active" href="today-lifestyle.html">KSD Lifestyle</a>
+      <a class="room-pill" href="today-visionary.html">Visionary Studio</a>
+      <a class="room-pill" href="landing.html">The Landing</a>
+    </nav>
+  </div>
+
+  <div class="room-lists-grid">
+    <div class="card" id="productDevCard"></div>
+    <div class="card" id="podCard"></div>
+    <div class="card" id="handmadeCard"></div>
+    <div class="card" id="futureCard"></div>
+  </div>
+
+</div>
+
+<script src="js/list-block.js"></script>
+<script>
+  document.getElementById('productDevCard').appendChild(
+    window.KSDTaskList.build('🎨 Product Development', 'ksd-room-list:lifestyle:product-development', {
+      placeholder: 'a product development task...',
+      allowDue: false
+    })
+  );
+  document.getElementById('podCard').appendChild(
+    window.KSDTaskList.build('🛒 POD Listings', 'ksd-room-list:lifestyle:pod-listings', {
+      placeholder: 'a print-on-demand listing task...',
+      allowDue: false
+    })
+  );
+  document.getElementById('handmadeCard').appendChild(
+    window.KSDTaskList.build('🧵 Handmade Listings', 'ksd-room-list:lifestyle:handmade-listings', {
+      placeholder: 'a handmade listing task...',
+      allowDue: false
+    })
+  );
+  document.getElementById('futureCard').appendChild(
+    window.KSDTaskList.build('💡 Product Ideas', 'ksd-room-list:lifestyle:product-ideas', {
+      placeholder: 'a product idea...',
+      allowDue: false
+    })
+  );
+</script>
+</body>
+</html>

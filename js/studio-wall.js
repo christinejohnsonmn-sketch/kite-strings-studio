@@ -9,8 +9,8 @@
   const ROOMS = [
     { slug: 'lite-run', label: 'Lite Run', day: 'Monday', icon: '🪁', file: 'room-lite-run.html' },
     { slug: 'ksd-client', label: 'KSD Client Work', day: 'Tuesday', icon: '🎨', file: 'today-ksd-client.html' },
-    { slug: 'ksd-templates', label: 'KSD Templates', day: 'Wednesday', icon: '🧩', file: 'today-ksd-templates.html' },
-    { slug: 'lifestyle', label: 'KSD Lifestyle', day: 'Thursday', icon: '🎁', file: 'today-lifestyle.html' },
+    { slug: 'ksd-templates', label: 'KSD Templates', day: 'Wednesday', icon: '🧩', file: 'room-ksd-templates.html' },
+    { slug: 'lifestyle', label: 'KSD Lifestyle', day: 'Thursday', icon: '🎁', file: 'room-lifestyle.html' },
     { slug: 'visionary', label: 'Visionary Studio', day: 'Friday', icon: '🔭', file: 'today-visionary.html' }
   ];
 

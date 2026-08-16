@@ -36,7 +36,9 @@ Whenever a new feature is tempting, ask: *would this make the studio feel calmer
 - `css/style.css` — the design system (KSD brand palette + type). v2: navy page background (`#324376`), tan rounded cards (`#EAE8DE`), matching `KSStudio_Today_Page.ai`
 - `js/today.js` — generic Today-room behavior, parameterized per business via a small inline `window.KSD_BUSINESS` config in each page
 - `js/studio-wall.js` — Studio Wall card rendering and per-room status
-- `room-lite-run.html` — the **Lite Run Room**: three simple editable lists (Website, Social Media, Misc). Separate from the daily Today planner — this is the standing reference space for that business, not tied to any date.
+- `room-lite-run.html` — the **Lite Run Room**: Social Media (fixed weekly checklist — Schedule Tuesday/Thursday post, auto-resets each Monday — plus a Content Ideas catch-all), Website, and Misc (checkbox + reorder + optional due date, auto-sorted soonest-first).
+- `room-ksd-templates.html` — the **KSD Templates Room**: five self-organizing task lists — Product, Website, Customer Experience, Marketing, Future Products — same checkbox/reorder/due-date behavior as Lite Run's Website and Misc.
+- `room-lifestyle.html` — the **KSD Lifestyle Room**: four checkbox + reorder lists (no due dates) — Product Development, POD Listings, Handmade Listings, Future Products. Static recurring lists (like Lite Run's Social Media checklist) still to come.
 - `js/list-block.js` — shared editable-list builder used by Studio Wall's Active Projects/Waiting/Ideas and by Room pages' lists — one implementation, reused everywhere a simple add/remove list is needed.
 - `js/landing-store.js` — shared storage helper for The Landing list
 - `js/landing.js` — The Landing page behavior
@@ -60,7 +62,7 @@ Whenever a new feature is tempting, ask: *would this make the studio feel calmer
 - [x] Sprint 3 — Day-of-week router, five themed Today rooms, shared caught-thoughts list (The Landing), date navigator for planning ahead
 - [x] Sprint 3.5 — Visual redesign to match `KSStudio_Today_Page.ai`: navy page, tan cards, two-column layout, real logo
 - [x] Sprint 3.75 — Studio Wall: five business cards with Active Projects, Waiting, Ideas, and Last Touched
-- [ ] Sprint 4 — Individual Room pages (in progress: Lite Run done — Website / Social Media / Misc; KSD Client Work, KSD Templates, KSD Lifestyle, Visionary Studio still to build)
+- [ ] Sprint 4 — Individual Room pages (in progress: Lite Run, KSD Templates, and KSD Lifestyle done; KSD Client Work and Visionary Studio still to build)
 - [ ] Sprint 5 — Polish: motion, mobile refinement, maybe dark mode
 
 ## Brand
