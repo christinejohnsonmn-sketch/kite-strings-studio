@@ -153,7 +153,7 @@
       weekday: 'long', month: 'long', day: 'numeric'
     });
     const onToday = isSameDay(viewDate, new Date());
-    todayJumpBtn.hidden = onToday;
+    todayJumpBtn.classList.toggle('is-hidden', onToday);
     planningNoteEl.textContent = onToday
       ? ''
       : `📅 Planning ahead — this is ${viewDate.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}, not today.`;

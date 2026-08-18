@@ -103,6 +103,44 @@ window.KSDListBlock = (function () {
 // (reorder arrows only apply to undated items — a dated item's position is
 // date-driven, not manual). The soonest 3 dated items get a yellow dot.
 // ==========================================================================
+// ==========================================================================
+// KSDPushToToday — sends a task's text into a business's Today page,
+// landing in Upcoming for whatever the real current date is. Used by
+// Room-page task lists so backlog items can be pulled into today's plan.
+// ==========================================================================
+window.KSDPushToToday = (function () {
+  function todayDateKey() {
+    const d = new Date();
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  }
+
+  function push(slug, text) {
+    const key = `ksd-entry:${slug}:${todayDateKey()}`;
+    let entry = {};
+    try {
+      const raw = localStorage.getItem(key);
+      if (raw) entry = JSON.parse(raw);
+    } catch (err) {
+      entry = {};
+    }
+    if (!Array.isArray(entry.upcoming)) entry.upcoming = [];
+    // Drop a lone empty placeholder row before adding the real item.
+    entry.upcoming = entry.upcoming.filter((it) => it && it.text && it.text.trim());
+    entry.upcoming.push({ text: text, done: false });
+    try {
+      localStorage.setItem(key, JSON.stringify(entry));
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }
+
+  return { push };
+})();
+
 window.KSDTaskList = (function () {
   function loadItems(key) {
     try {
@@ -126,6 +164,7 @@ window.KSDTaskList = (function () {
     const opts = options || {};
     const placeholder = opts.placeholder || '...';
     const allowDue = !!opts.allowDue;
+    const pushToSlug = opts.pushToSlug || null;
 
     let items = loadItems(storageKey);
 
@@ -254,6 +293,22 @@ window.KSDTaskList = (function () {
             render();
           });
           li.appendChild(due);
+        }
+
+        if (pushToSlug) {
+          const pushBtn = document.createElement('button');
+          pushBtn.type = 'button';
+          pushBtn.className = 'push-today-btn';
+          pushBtn.title = "Send to today's Upcoming list";
+          pushBtn.textContent = '→ Today';
+          pushBtn.addEventListener('click', () => {
+            if (!item.text || !item.text.trim()) return;
+            window.KSDPushToToday.push(pushToSlug, item.text);
+            items.splice(idx, 1);
+            scheduleSave();
+            render();
+          });
+          li.appendChild(pushBtn);
         }
 
         const remove = document.createElement('button');

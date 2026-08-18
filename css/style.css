@@ -134,7 +134,7 @@ body {
   cursor: pointer;
 }
 .today-jump:hover { background: #CBD3E9; }
-.today-jump[hidden] { display: none; }
+.today-jump.is-hidden { visibility: hidden; pointer-events: none; }
 
 .planning-note {
   text-align: center;
@@ -389,7 +389,7 @@ body {
 /* For The Landing */
 .brain-list { list-style: none; margin: 0 0 10px; padding: 0; }
 .brain-item { display: flex; align-items: center; gap: 10px; padding: 5px 0; }
-.brain-bullet { flex: 0 0 auto; width: 5px; height: 5px; border-radius: 50%; background: var(--orange); opacity: 0.7; }
+.brain-bullet { display: none; }
 .brain-text {
   flex: 1 1 auto;
   border: none;
@@ -566,6 +566,21 @@ body {
 }
 .task-item:last-child { border-bottom: none; }
 .task-item.done .b3-text { color: #A6A399; text-decoration: line-through; text-decoration-color: #C7C2B3; }
+.push-today-btn {
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  background: var(--card-bg-soft);
+  color: var(--blue);
+  font-family: 'Roboto', sans-serif;
+  font-size: 10.5px;
+  font-weight: 500;
+  border-radius: 6px;
+  padding: 2px 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.push-today-btn:hover { border-color: var(--blue); background: var(--blue-soft); }
+
 .task-due {
   flex: 0 0 auto;
   font-family: 'Roboto', sans-serif;
@@ -651,7 +666,7 @@ body {
 
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 18px;
   align-items: start;
 }

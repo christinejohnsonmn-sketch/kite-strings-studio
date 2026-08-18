@@ -69,13 +69,15 @@
   document.getElementById('websiteCard').appendChild(
     window.KSDTaskList.build('🌐 Website', 'ksd-room-list:lite-run:website', {
       placeholder: 'a website task or note...',
-      allowDue: true
+      allowDue: true,
+      pushToSlug: 'lite-run'
     })
   );
   document.getElementById('miscCard').appendChild(
     window.KSDTaskList.build('📎 Misc', 'ksd-room-list:lite-run:misc', {
       placeholder: 'anything else...',
-      allowDue: true
+      allowDue: true,
+      pushToSlug: 'lite-run'
     })
   );
 </script>
