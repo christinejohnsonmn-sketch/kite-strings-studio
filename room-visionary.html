@@ -62,7 +62,7 @@
       { key: 'rfp-sites', label: 'RFP search websites' },
       { key: 'gov-procurement', label: 'Government procurement sites' },
       { key: 'museum-sources', label: 'Museum-specific RFP sources' }
-    ])
+    ], 'visionary')
   );
 
   document.getElementById('relationshipsCard').appendChild(
@@ -71,7 +71,7 @@
       { key: 'follow-up', label: 'Follow up on an open conversation' },
       { key: 'check-in', label: 'Check in with a collaborator or vendor' },
       { key: 'network', label: 'Engage in your network (LinkedIn, IMP, etc.)' }
-    ])
+    ], 'visionary')
   );
 
   document.getElementById('adminCard').appendChild(
@@ -79,24 +79,24 @@
       { key: 'quickbooks', label: 'Update QuickBooks' },
       { key: 'mileage', label: 'Review mileage' },
       { key: 'invoices', label: 'Send invoices' }
-    ])
+    ], 'visionary')
   );
 
   document.getElementById('marketingStaticHolder').appendChild(
-    window.KSDStaticWeekly.build('📣 Marketing', 'ksd-static-weekly:visionary:marketing', [])
+    window.KSDStaticWeekly.build('📣 Marketing', 'ksd-static-weekly:visionary:marketing', [], 'visionary')
   );
 
   // ---- Persistent catch-alls: not tied to any weekly rhythm ----
   document.getElementById('contentIdeasHolder').appendChild(
-    window.KSDListBlock.build('💡 Content Ideas', 'ksd-room-list:visionary:content-ideas', 'a content idea...')
+    window.KSDListBlock.build('💡 Content Ideas', 'ksd-room-list:visionary:content-ideas', 'a content idea...', 'visionary')
   );
 
   document.getElementById('bizDevCard').appendChild(
-    window.KSDListBlock.build('🌱 Business Development', 'ksd-room-list:visionary:biz-dev', 'something that could move the business forward...')
+    window.KSDListBlock.build('🌱 Business Development', 'ksd-room-list:visionary:biz-dev', 'something that could move the business forward...', 'visionary')
   );
 
   document.getElementById('ideasCard').appendChild(
-    window.KSDListBlock.build('💡 Future Ideas', 'ksd-room-list:visionary:future-ideas', 'a someday idea...')
+    window.KSDListBlock.build('💡 Future Ideas', 'ksd-room-list:visionary:future-ideas', 'a someday idea...', 'visionary')
   );
 </script>
 </body>

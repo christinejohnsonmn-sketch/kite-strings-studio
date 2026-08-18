@@ -408,8 +408,18 @@ window.KSDClientBoard = (function () {
       label.className = 'tmpl-task-label';
       label.textContent = t.label;
 
+      const pushBtn = document.createElement('button');
+      pushBtn.type = 'button';
+      pushBtn.className = 'push-today-btn';
+      pushBtn.title = "Copy to today's Upcoming list";
+      pushBtn.textContent = '→ Today';
+      pushBtn.addEventListener('click', () => {
+        window.KSDPushToToday.push('ksd-client', t.label);
+      });
+
       li.appendChild(check);
       li.appendChild(label);
+      li.appendChild(pushBtn);
       ul.appendChild(li);
     });
     wrap.appendChild(ul);

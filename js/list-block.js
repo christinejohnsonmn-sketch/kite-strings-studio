@@ -23,7 +23,7 @@ window.KSDListBlock = (function () {
     }
   }
 
-  function build(label, storageKey, addPlaceholder) {
+  function build(label, storageKey, addPlaceholder, pushToSlug) {
     let items = loadList(storageKey);
     const block = document.createElement('div');
     block.className = 'list-block';
@@ -58,6 +58,25 @@ window.KSDListBlock = (function () {
           saveTimer = setTimeout(() => saveList(storageKey, items), 400);
         });
 
+        li.appendChild(bullet);
+        li.appendChild(input);
+
+        if (pushToSlug) {
+          const pushBtn = document.createElement('button');
+          pushBtn.type = 'button';
+          pushBtn.className = 'push-today-btn';
+          pushBtn.title = "Send to today's Upcoming list";
+          pushBtn.textContent = '→ Today';
+          pushBtn.addEventListener('click', () => {
+            if (!text || !text.trim()) return;
+            window.KSDPushToToday.push(pushToSlug, text);
+            items.splice(idx, 1);
+            renderList();
+            saveList(storageKey, items);
+          });
+          li.appendChild(pushBtn);
+        }
+
         const remove = document.createElement('button');
         remove.className = 'brain-remove';
         remove.type = 'button';
@@ -69,8 +88,6 @@ window.KSDListBlock = (function () {
           saveList(storageKey, items);
         });
 
-        li.appendChild(bullet);
-        li.appendChild(input);
         li.appendChild(remove);
         ul.appendChild(li);
       });
@@ -367,7 +384,7 @@ window.KSDStaticWeekly = (function () {
   }
 
   // items: [{ key, label }]
-  function build(label, storageKey, items) {
+  function build(label, storageKey, items, pushToSlug) {
     const defaultState = { weekKey: '' };
     items.forEach((it) => { defaultState[it.key] = false; });
 
@@ -423,6 +440,19 @@ window.KSDStaticWeekly = (function () {
 
       li.appendChild(check);
       li.appendChild(labelEl);
+
+      if (pushToSlug) {
+        const pushBtn = document.createElement('button');
+        pushBtn.type = 'button';
+        pushBtn.className = 'push-today-btn';
+        pushBtn.title = "Copy to today's Upcoming list";
+        pushBtn.textContent = '→ Today';
+        pushBtn.addEventListener('click', () => {
+          window.KSDPushToToday.push(pushToSlug, def.label);
+        });
+        li.appendChild(pushBtn);
+      }
+
       ul.appendChild(li);
     });
 

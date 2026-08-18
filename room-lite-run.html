@@ -57,12 +57,12 @@
     window.KSDStaticWeekly.build('📣 Social Media', 'ksd-social-static:lite-run', [
       { key: 'tuesday', label: 'Schedule Tuesday post' },
       { key: 'thursday', label: 'Schedule Thursday post' }
-    ])
+    ], 'lite-run')
   );
 
   // ---- Content Ideas: plain catch-all list, no sorting ----
   document.getElementById('contentIdeasHolder').appendChild(
-    window.KSDListBlock.build('💡 Content Ideas', 'ksd-room-list:lite-run:content-ideas', 'a content idea...')
+    window.KSDListBlock.build('💡 Content Ideas', 'ksd-room-list:lite-run:content-ideas', 'a content idea...', 'lite-run')
   );
 
   // ---- Website & Misc: checkbox + reorder + optional due date ----
