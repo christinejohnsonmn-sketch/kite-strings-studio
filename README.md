@@ -38,8 +38,9 @@ Whenever a new feature is tempting, ask: *would this make the studio feel calmer
 - `js/studio-wall.js` — Studio Wall card rendering and per-room status
 - `room-lite-run.html` — the **Lite Run Room**: Social Media (fixed weekly checklist — Schedule Tuesday/Thursday post, auto-resets each Monday — plus a Content Ideas catch-all), Website, and Misc (checkbox + reorder + optional due date, auto-sorted soonest-first).
 - `room-ksd-templates.html` — the **KSD Templates Room**: five self-organizing task lists — Product, Website, Customer Experience, Marketing, Future Products — same checkbox/reorder/due-date behavior as Lite Run's Website and Misc.
-- `room-lifestyle.html` — the **KSD Lifestyle Room**: four checkbox + reorder lists (no due dates) — Product Development, POD Listings, Handmade Listings, Future Products. Static recurring lists (like Lite Run's Social Media checklist) still to come.
-- `js/list-block.js` — shared editable-list builder used by Studio Wall's Active Projects/Waiting/Ideas and by Room pages' lists — one implementation, reused everywhere a simple add/remove list is needed.
+- `room-lifestyle.html` — the **KSD Lifestyle Room**: four checkbox + reorder lists (no due dates) — Product Development, POD Listings, Handmade Listings, Product Ideas. Static recurring lists (like Lite Run's Social Media checklist) still to come.
+- `room-visionary.html` — the **Visionary Studio Room**: a mix of weekly-reset checklists (RFPs & Opportunities, Relationships, Admin, and a Marketing checklist still pending its items) for recurring habits, plus persistent catch-all lists (Content Ideas, Business Development, Future Ideas) for open-ended tracking that shouldn't reset.
+- `js/list-block.js` — three shared, reusable list components: `KSDListBlock` (plain add/remove list), `KSDTaskList` (checkbox + reorder + optional due-date auto-sort), and `KSDStaticWeekly` (fixed recurring checklist that resets every Monday) — used across Studio Wall and every Room page.
 - `js/landing-store.js` — shared storage helper for The Landing list
 - `js/landing.js` — The Landing page behavior
 - `assets/logo.png` — the real Kite Strings Studio logo
@@ -62,7 +63,7 @@ Whenever a new feature is tempting, ask: *would this make the studio feel calmer
 - [x] Sprint 3 — Day-of-week router, five themed Today rooms, shared caught-thoughts list (The Landing), date navigator for planning ahead
 - [x] Sprint 3.5 — Visual redesign to match `KSStudio_Today_Page.ai`: navy page, tan cards, two-column layout, real logo
 - [x] Sprint 3.75 — Studio Wall: five business cards with Active Projects, Waiting, Ideas, and Last Touched
-- [ ] Sprint 4 — Individual Room pages (in progress: Lite Run, KSD Templates, and KSD Lifestyle done; KSD Client Work and Visionary Studio still to build)
+- [ ] Sprint 4 — Individual Room pages (in progress: Lite Run, KSD Templates, KSD Lifestyle, and Visionary Studio done — Visionary's Marketing checklist still needs its specific weekly items; KSD Client Work still to build)
 - [ ] Sprint 5 — Polish: motion, mobile refinement, maybe dark mode
 
 ## Brand

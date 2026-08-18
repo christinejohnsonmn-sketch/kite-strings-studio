@@ -11,7 +11,7 @@
     { slug: 'ksd-client', label: 'KSD Client Work', day: 'Tuesday', icon: '🎨', file: 'today-ksd-client.html' },
     { slug: 'ksd-templates', label: 'KSD Templates', day: 'Wednesday', icon: '🧩', file: 'room-ksd-templates.html' },
     { slug: 'lifestyle', label: 'KSD Lifestyle', day: 'Thursday', icon: '🎁', file: 'room-lifestyle.html' },
-    { slug: 'visionary', label: 'Visionary Studio', day: 'Friday', icon: '🔭', file: 'today-visionary.html' }
+    { slug: 'visionary', label: 'Visionary Studio', day: 'Friday', icon: '🔭', file: 'room-visionary.html' }
   ];
 
   const todayDayName = new Date().toLocaleDateString(undefined, { weekday: 'long' });

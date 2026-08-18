@@ -291,3 +291,88 @@ window.KSDTaskList = (function () {
 
   return { build };
 })();
+
+// ==========================================================================
+// KSDStaticWeekly — a fixed, non-editable, non-removable checklist that
+// auto-resets to unchecked at the start of each week (Monday). For
+// recurring habits (source-checking, outreach, admin tasks) rather than
+// open-ended tracking. Matches the pattern first used for Lite Run's
+// Social Media checklist, generalized so any room can reuse it.
+// ==========================================================================
+window.KSDStaticWeekly = (function () {
+  function mondayKeyFor(d) {
+    const date = new Date(d);
+    const day = date.getDay(); // 0 = Sunday ... 6 = Saturday
+    const diff = day === 0 ? -6 : 1 - day; // days back to this week's Monday
+    date.setDate(date.getDate() + diff);
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const dd = String(date.getDate()).padStart(2, '0');
+    return `${y}-${m}-${dd}`;
+  }
+
+  // items: [{ key, label }]
+  function build(label, storageKey, items) {
+    const defaultState = { weekKey: '' };
+    items.forEach((it) => { defaultState[it.key] = false; });
+
+    let state = Object.assign({}, defaultState);
+    try {
+      const raw = localStorage.getItem(storageKey);
+      if (raw) state = Object.assign({}, defaultState, JSON.parse(raw));
+    } catch (err) {
+      // ignore
+    }
+
+    const currentWeekKey = mondayKeyFor(new Date());
+    if (state.weekKey !== currentWeekKey) {
+      state = Object.assign({}, defaultState, { weekKey: currentWeekKey });
+    }
+
+    function save() {
+      try { localStorage.setItem(storageKey, JSON.stringify(state)); } catch (err) { /* ignore */ }
+    }
+    save();
+
+    const wrap = document.createElement('div');
+    wrap.className = 'list-block';
+
+    if (label) {
+      const heading = document.createElement('div');
+      heading.className = 'eyebrow';
+      heading.textContent = label;
+      wrap.appendChild(heading);
+    }
+
+    const ul = document.createElement('ul');
+    ul.className = 'static-task-list';
+    wrap.appendChild(ul);
+
+    items.forEach((def) => {
+      const li = document.createElement('li');
+      li.className = 'static-task-item' + (state[def.key] ? ' done' : '');
+
+      const check = document.createElement('input');
+      check.type = 'checkbox';
+      check.className = 'b3-check';
+      check.checked = !!state[def.key];
+      check.addEventListener('change', () => {
+        state[def.key] = check.checked;
+        li.classList.toggle('done', check.checked);
+        save();
+      });
+
+      const labelEl = document.createElement('span');
+      labelEl.className = 'static-task-label';
+      labelEl.textContent = def.label;
+
+      li.appendChild(check);
+      li.appendChild(labelEl);
+      ul.appendChild(li);
+    });
+
+    return wrap;
+  }
+
+  return { build };
+})();

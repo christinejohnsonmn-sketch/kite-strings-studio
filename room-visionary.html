@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kite Strings Studio — Visionary Studio Room</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="page">
+
+  <div class="card header-card">
+    <div class="header-top">
+      <div class="logo">
+        <img src="assets/logo.png" alt="Kite Strings Studio" class="logo-img" />
+      </div>
+      <div class="room-title">
+        <span class="name">Visionary Studio —</span> <span class="day">Room</span>
+      </div>
+      <div class="header-date">
+        <span class="date-display" style="min-width:0;"><a class="card-link" href="today-visionary.html">→ Today's tasks</a></span>
+      </div>
+    </div>
+    <nav class="room-nav">
+      <a class="room-pill" href="index.html">🏠 Today</a>
+      <a class="room-pill" href="studio-wall.html">🖼️ Studio Wall</a>
+      <a class="room-pill" href="today-lite-run.html">Lite Run</a>
+      <a class="room-pill" href="today-ksd-client.html">KSD Client Work</a>
+      <a class="room-pill" href="today-ksd-templates.html">KSD Templates</a>
+      <a class="room-pill" href="today-lifestyle.html">KSD Lifestyle</a>
+      <a class="room-pill active" href="today-visionary.html">Visionary Studio</a>
+      <a class="room-pill" href="landing.html">The Landing</a>
+    </nav>
+  </div>
+
+  <div class="room-lists-grid">
+    <div class="card" id="rfpCard"></div>
+    <div class="card" id="relationshipsCard"></div>
+    <div class="card" id="bizDevCard"></div>
+
+    <div class="card" id="marketingCard">
+      <div id="contentIdeasHolder"></div>
+      <hr class="room-subdivider" />
+      <div id="marketingStaticHolder"></div>
+      <p class="router-message" style="font-size:11px; margin:8px 0 0;">Weekly marketing tasks — tell me what goes here and I'll add them.</p>
+    </div>
+
+    <div class="card" id="adminCard"></div>
+    <div class="card" id="ideasCard"></div>
+  </div>
+
+</div>
+
+<script src="js/list-block.js"></script>
+<script>
+  // ---- Weekly-reset checklists: recurring habits, not open-ended tracking ----
+  document.getElementById('rfpCard').appendChild(
+    window.KSDStaticWeekly.build('🔎 RFPs & Opportunities', 'ksd-static-weekly:visionary:rfp', [
+      { key: 'rfp-sites', label: 'RFP search websites' },
+      { key: 'gov-procurement', label: 'Government procurement sites' },
+      { key: 'museum-sources', label: 'Museum-specific RFP sources' }
+    ])
+  );
+
+  document.getElementById('relationshipsCard').appendChild(
+    window.KSDStaticWeekly.build('🤝 Relationships', 'ksd-static-weekly:visionary:relationships', [
+      { key: 'past-client', label: 'Reach out to a past client' },
+      { key: 'follow-up', label: 'Follow up on an open conversation' },
+      { key: 'check-in', label: 'Check in with a collaborator or vendor' },
+      { key: 'network', label: 'Engage in your network (LinkedIn, IMP, etc.)' }
+    ])
+  );
+
+  document.getElementById('adminCard').appendChild(
+    window.KSDStaticWeekly.build('💰 Admin', 'ksd-static-weekly:visionary:admin', [
+      { key: 'quickbooks', label: 'Update QuickBooks' },
+      { key: 'mileage', label: 'Review mileage' },
+      { key: 'invoices', label: 'Send invoices' }
+    ])
+  );
+
+  document.getElementById('marketingStaticHolder').appendChild(
+    window.KSDStaticWeekly.build('📣 Marketing', 'ksd-static-weekly:visionary:marketing', [])
+  );
+
+  // ---- Persistent catch-alls: not tied to any weekly rhythm ----
+  document.getElementById('contentIdeasHolder').appendChild(
+    window.KSDListBlock.build('💡 Content Ideas', 'ksd-room-list:visionary:content-ideas', 'a content idea...')
+  );
+
+  document.getElementById('bizDevCard').appendChild(
+    window.KSDListBlock.build('🌱 Business Development', 'ksd-room-list:visionary:biz-dev', 'something that could move the business forward...')
+  );
+
+  document.getElementById('ideasCard').appendChild(
+    window.KSDListBlock.build('💡 Future Ideas', 'ksd-room-list:visionary:future-ideas', 'a someday idea...')
+  );
+</script>
+</body>
+</html>
