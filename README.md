@@ -40,6 +40,8 @@ Whenever a new feature is tempting, ask: *would this make the studio feel calmer
 - `room-ksd-templates.html` — the **KSD Templates Room**: five self-organizing task lists — Product, Website, Customer Experience, Marketing, Future Products — same checkbox/reorder/due-date behavior as Lite Run's Website and Misc.
 - `room-lifestyle.html` — the **KSD Lifestyle Room**: four checkbox + reorder lists (no due dates) — Product Development, POD Listings, Handmade Listings, Product Ideas. Static recurring lists (like Lite Run's Social Media checklist) still to come.
 - `room-visionary.html` — the **Visionary Studio Room**: a mix of weekly-reset checklists (RFPs & Opportunities, Relationships, Admin, and a Marketing checklist still pending its items) for recurring habits, plus persistent catch-all lists (Content Ideas, Business Development, Future Ideas) for open-ended tracking that shouldn't reset.
+- `room-ksd-client.html` — the **KSD Client Work board**: not a click-into-cards Kanban. Each active project card shows name, contract amount, final due date, an auto-computed current-phase banner, and the full 7-phase / 24-task checklist all at once (current phase visually highlighted), with per-phase due dates. A separate Proposals section uses its own 14-task template. "+ New Project" / "+ New Proposal" stamp out a fresh copy of the template.
+- `js/client-board.js` — the project/proposal templates, storage, current-phase computation, and card rendering for the KSD Client Work board.
 - `js/list-block.js` — three shared, reusable list components: `KSDListBlock` (plain add/remove list), `KSDTaskList` (checkbox + reorder + optional due-date auto-sort), and `KSDStaticWeekly` (fixed recurring checklist that resets every Monday) — used across Studio Wall and every Room page.
 - `js/landing-store.js` — shared storage helper for The Landing list
 - `js/landing.js` — The Landing page behavior
@@ -63,7 +65,7 @@ Whenever a new feature is tempting, ask: *would this make the studio feel calmer
 - [x] Sprint 3 — Day-of-week router, five themed Today rooms, shared caught-thoughts list (The Landing), date navigator for planning ahead
 - [x] Sprint 3.5 — Visual redesign to match `KSStudio_Today_Page.ai`: navy page, tan cards, two-column layout, real logo
 - [x] Sprint 3.75 — Studio Wall: five business cards with Active Projects, Waiting, Ideas, and Last Touched
-- [ ] Sprint 4 — Individual Room pages (in progress: Lite Run, KSD Templates, KSD Lifestyle, and Visionary Studio done — Visionary's Marketing checklist still needs its specific weekly items; KSD Client Work still to build)
+- [x] Sprint 4 — Individual Room pages: Lite Run, KSD Templates, KSD Lifestyle, Visionary Studio, and KSD Client Work all built. (Visionary's Marketing checklist still needs its specific weekly items.)
 - [ ] Sprint 5 — Polish: motion, mobile refinement, maybe dark mode
 
 ## Brand

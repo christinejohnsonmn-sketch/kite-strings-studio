@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kite Strings Studio — KSD Client Work Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="page">
+
+  <div class="card header-card">
+    <div class="header-top">
+      <div class="logo">
+        <img src="assets/logo.png" alt="Kite Strings Studio" class="logo-img" />
+      </div>
+      <div class="room-title">
+        <span class="name">KSD Client Work —</span> <span class="day">Board</span>
+      </div>
+      <div class="header-date">
+        <span class="date-display" style="min-width:0;"><a class="card-link" href="today-ksd-client.html">→ Today's tasks</a></span>
+      </div>
+    </div>
+    <nav class="room-nav">
+      <a class="room-pill" href="index.html">🏠 Today</a>
+      <a class="room-pill" href="studio-wall.html">🖼️ Studio Wall</a>
+      <a class="room-pill" href="today-lite-run.html">Lite Run</a>
+      <a class="room-pill active" href="today-ksd-client.html">KSD Client Work</a>
+      <a class="room-pill" href="today-ksd-templates.html">KSD Templates</a>
+      <a class="room-pill" href="today-lifestyle.html">KSD Lifestyle</a>
+      <a class="room-pill" href="today-visionary.html">Visionary Studio</a>
+      <a class="room-pill" href="landing.html">The Landing</a>
+    </nav>
+  </div>
+
+  <div class="client-board-heading">
+    <div class="client-board-title">📁 Active Projects</div>
+    <button type="button" class="client-board-add" id="addProjectBtn">+ New Project</button>
+  </div>
+  <div class="project-grid" id="projectsGrid"></div>
+
+  <div class="client-board-heading">
+    <div class="client-board-title">📝 Proposals</div>
+    <button type="button" class="client-board-add" id="addProposalBtn">+ New Proposal</button>
+  </div>
+  <div class="project-grid" id="proposalsGrid"></div>
+
+</div>
+
+<script src="js/client-board.js"></script>
+<script>
+  window.KSDClientBoard.mount(
+    document.getElementById('projectsGrid'),
+    document.getElementById('proposalsGrid'),
+    document.getElementById('addProjectBtn'),
+    document.getElementById('addProposalBtn')
+  );
+</script>
+</body>
+</html>

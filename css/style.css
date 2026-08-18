@@ -619,3 +619,184 @@ body {
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
 }
+
+/* ---- KSD Client Work board (projects + proposals) ---- */
+.client-board-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 22px 0 12px;
+}
+.client-board-heading:first-child { margin-top: 0; }
+.client-board-title {
+  font-family: 'Roboto Slab', serif;
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--card-bg);
+}
+.client-board-add {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  background: var(--yellow);
+  color: #5C3F14;
+  border: none;
+  border-radius: 999px;
+  padding: 7px 16px;
+  cursor: pointer;
+}
+.client-board-add:hover { background: #F0D06F; }
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 18px;
+  align-items: start;
+}
+
+.project-card, .proposal-card { display: flex; flex-direction: column; }
+
+.project-top-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.project-card-name {
+  flex: 1 1 auto;
+  border: none;
+  background: transparent;
+  font-family: 'Roboto Slab', serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--ink);
+  padding: 2px;
+  border-bottom: 1px dashed transparent;
+}
+.project-card-name:focus { border-bottom: 1px dashed var(--line); }
+.project-card-name::placeholder { color: #ABA6C0; font-style: italic; }
+
+.remove-card-link {
+  flex: 0 0 auto;
+  border: none;
+  background: transparent;
+  color: #C4B9A5;
+  font-family: 'Roboto', sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+.remove-card-link:hover { color: var(--orange); }
+
+.project-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+.project-meta-field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.field-label {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.project-meta-field input {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 4px 7px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--card-bg-soft);
+}
+
+.current-phase-banner {
+  background: var(--yellow);
+  color: #5C3F14;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+  font-size: 12.5px;
+  margin-bottom: 14px;
+}
+.current-phase-banner.complete { background: var(--blue-soft); color: var(--ink); }
+
+.phase-block {
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #EEEBE0;
+}
+.phase-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.phase-block.current-phase {
+  border-left: 3px solid var(--yellow-deep);
+  padding-left: 10px;
+  margin-left: -10px;
+  background: rgba(245, 221, 144, 0.12);
+  border-radius: 0 6px 6px 0;
+}
+.phase-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.phase-title {
+  font-family: 'Roboto Slab', serif;
+  font-weight: 600;
+  font-size: 13.5px;
+  color: var(--ink);
+}
+.phase-due-input {
+  font-family: 'Roboto', sans-serif;
+  font-size: 11px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 2px 5px;
+  background: var(--card-bg-soft);
+  color: var(--ink-soft);
+  max-width: 128px;
+}
+
+.tmpl-task-list { list-style: none; margin: 0; padding: 0; }
+.tmpl-task-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 0;
+}
+.tmpl-task-label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 13px;
+  color: var(--ink);
+}
+.tmpl-task-item.done .tmpl-task-label {
+  color: #A6A399;
+  text-decoration: line-through;
+  text-decoration-color: #C7C2B3;
+}
+
+.review-done-toggle {
+  display: block;
+  border: none;
+  background: transparent;
+  color: var(--ink-soft);
+  font-family: 'Roboto', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 0 2px;
+}
+.review-done-toggle:hover { color: var(--blue); }
+.review-done-toggle.open { color: var(--blue); }
+.review-done-list { margin-top: 4px; opacity: 0.75; }
